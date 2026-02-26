@@ -33,7 +33,6 @@ import { useActions } from 'src/hooks/useActions';
 import { useAuth } from 'src/hooks/useAuth';
 import { useTypedSelector } from 'src/hooks/useTypedSelector';
 import { HeaderProps } from './header.props';
-import Image from 'next/image';
 
 const Header = ({ onToggle }: HeaderProps) => {
 	const { toggleColorMode, colorMode } = useColorMode();
@@ -82,21 +81,11 @@ const Header = ({ onToggle }: HeaderProps) => {
 						cursor={'pointer'}
 					/>
 					<Link href={'/'}>
-						{colorMode === 'light' ?  (
-        <Image
-          src="/images/logoDark.png"
-          alt={ 'Logo'}
-          width={120}
-          height={80}
-        />
-      ) : (
-        <Image
-          src="/images/logoWhite.png"
-          alt={'Logo'}
-          width={120}
-          height={80}
-        />
-      )}
+						{colorMode === 'light' ? (
+							<img src="/images/logoDark.png" alt="Logo" width={120} height={80} style={{ display: 'block' }} />
+						) : (
+							<img src="/images/logoWhite.png" alt="Logo" width={120} height={80} style={{ display: 'block' }} />
+						)}
 					</Link>
 				</HStack>
 				<HStack>

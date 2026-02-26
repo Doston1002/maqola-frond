@@ -3,7 +3,7 @@ import { Box, Container, Heading, SimpleGrid, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { withAdminLayout } from 'src/layouts/admin';
 import $axios from 'src/api/axios';
-import { API_URL, getAdminUrl } from 'src/config/api.config';
+import { getAdminUrl } from 'src/config/api.config';
 import { getRoleFromToken } from 'src/helpers/token.helper';
 import { useEffect, useState } from 'react';
 import { ArticleType } from 'src/interfaces/article.interface';
@@ -24,7 +24,7 @@ const AdminDashboard = () => {
 			router.push('/');
 			return;
 		}
-		$axios.get<DashboardData>(`${API_URL}${getAdminUrl('dashboard')}`).then((res) => setData(res.data)).catch(() => setData(null));
+		$axios.get<DashboardData>(getAdminUrl('dashboard')).then((res) => setData(res.data)).catch(() => setData(null));
 	}, [userRole, router]);
 
 	if (userRole !== 'ADMIN') return null;

@@ -19,7 +19,6 @@ import { BiMenuAltLeft } from 'react-icons/bi';
 import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
 import { TbWorld } from 'react-icons/tb';
 import { language, navigation } from 'src/config/constants';
-import Image from 'next/image';
 
 const AuthNavbarComponent = () => {
 	const [menu, setMenu] = useState(false);
@@ -52,17 +51,13 @@ const AuthNavbarComponent = () => {
 							display={{ base: 'flex', md: 'none' }}
 							onClick={toggleMenu}
 						/>
-						<Link href={'/'}>{colorMode === 'light' ?  <Image
-								  src="/images/logoDark.png"
-								  alt={'Logo'}
-								  width={200}
-								  height={100}
-								/>:  <Image
-										  src="/images/logoWhite.png"
-										  alt={'Logo'}
-										  width={200}
-										  height={100}
-										/>}</Link>
+						<Link href={'/'}>
+							{colorMode === 'light' ? (
+								<img src="/images/logoDark.png" alt="Logo" width={200} height={100} style={{ display: 'block' }} />
+							) : (
+								<img src="/images/logoWhite.png" alt="Logo" width={200} height={100} style={{ display: 'block' }} />
+							)}
+						</Link>
 					</HStack>
 					<HStack gap={{ base: 0, md: 5 }}>
 						{(navigation[0]?.links ?? []).map(nav => (

@@ -20,7 +20,6 @@ import {
 } from '@chakra-ui/react';
 import { Form, Formik, FormikValues } from 'formik';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -123,17 +122,11 @@ const Header = () => {
 			>
 				<Stack gap={{ base: 0, md: 2 }} direction={'row'}>
 					<Link href='/'>
-						{colorMode === 'light' ?  <Image
-          src="/images/logoDark.png"
-          alt={ 'Logo'}
-          width={120}
-          height={80}
-        /> : <Image
-		src="/images/logoWhite.png"
-		alt={'Logo'}
-		width={120}
-		height={80}
-	  />}
+						{colorMode === 'light' ? (
+							<img src="/images/logoDark.png" alt="Logo" width={120} height={80} style={{ display: 'block' }} />
+						) : (
+							<img src="/images/logoWhite.png" alt="Logo" width={120} height={80} style={{ display: 'block' }} />
+						)}
 					</Link>
 				</Stack>
 

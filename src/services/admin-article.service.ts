@@ -1,14 +1,11 @@
 import $axios from 'src/api/axios';
 import { getArticlesUrl } from 'src/config/api.config';
 import { ArticleType } from 'src/interfaces/article.interface';
-import { API_URL } from 'src/config/api.config';
 
 export const AdminArticleService = {
   async getAll(collectionId?: string) {
-    const url = collectionId
-      ? `${API_URL}${getArticlesUrl('admin/all')}?collectionId=${collectionId}`
-      : `${API_URL}${getArticlesUrl('admin/all')}`;
-    const { data } = await $axios.get<ArticleType[]>(url);
+    const q = collectionId ? `?collectionId=${collectionId}` : '';
+    const { data } = await $axios.get<ArticleType[]>(getArticlesUrl('admin/all') + q);
     return data;
   },
 
@@ -31,16 +28,16 @@ export const AdminArticleService = {
     doi?: string;
     isPublished?: boolean;
   }) {
-    const { data } = await $axios.post<ArticleType>(`${API_URL}/articles`, body);
+    const { data } = await $axios.post<ArticleType>(getArticlesUrl(''), body);
     return data;
   },
 
   async update(id: string, body: Partial<ArticleType>) {
-    const { data } = await $axios.patch<ArticleType>(`${API_URL}/articles/${id}`, body);
+    const { data } = await $axios.patch<ArticleType>(getArticlesUrl(id), body);
     return data;
   },
 
   async delete(id: string) {
-    await $axios.delete(`${API_URL}/articles/${id}`);
+    await $axios.delete(getArticlesUrl(id));
   },
 };

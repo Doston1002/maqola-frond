@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { withAdminLayout } from 'src/layouts/admin';
 import { getRoleFromToken } from 'src/helpers/token.helper';
 import { AdminCollectionService } from 'src/services/admin-collection.service';
-import { getFileUrl, getAssetSrc, API_URL } from 'src/config/api.config';
+import { getFileUrl, getAssetSrc, getCollectionsUrl } from 'src/config/api.config';
 import $axios from 'src/api/axios';
 
 const EditCollectionPage = () => {
@@ -30,7 +30,7 @@ const EditCollectionPage = () => {
 
 	useEffect(() => {
 		if (!id || userRole !== 'ADMIN') return;
-		$axios.get(`${API_URL}/collections/admin/${id}`).then((res) => {
+		$axios.get(getCollectionsUrl('admin/' + id)).then((res) => {
 			const c = res.data;
 			setTitleUz(c.title_uz ?? c.title ?? '');
 			setTitleRu(c.title_ru ?? '');
@@ -50,7 +50,7 @@ const EditCollectionPage = () => {
 		const form = new FormData();
 		form.append('image', file);
 		try {
-			const { data } = await $axios.post<{ url: string }>(`${API_URL}${getFileUrl('save')}?folder=covers`, form, {
+			const { data } = await $axios.post<{ url: string }>(`${getFileUrl('save')}?folder=covers`, form, {
 				headers: { 'Content-Type': 'multipart/form-data' },
 			});
 			setCoverImage(data.url);

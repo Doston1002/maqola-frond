@@ -14,7 +14,6 @@ import {
 	useColorMode,
 	useColorModeValue,
 } from '@chakra-ui/react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
@@ -46,21 +45,11 @@ const AdminSidebar = () => {
 			<Container mt={5}>
 				<HStack justify={'space-between'}>
 				<Link href={'/'}>
-						{colorMode === 'light' ?  (
-        <Image
-          src="/images/logoDark.png"
-          alt={ 'Logo'}
-          width={120}
-          height={80}
-        />
-      ) : (
-        <Image
-          src="/images/logoWhite.png"
-          alt={'Logo'}
-          width={120}
-          height={80}
-        />
-      )}
+						{colorMode === 'light' ? (
+							<img src="/images/logoDark.png" alt="Logo" width={120} height={80} style={{ display: 'block' }} />
+						) : (
+							<img src="/images/logoWhite.png" alt="Logo" width={120} height={80} style={{ display: 'block' }} />
+						)}
 					</Link>
 					<HStack>
 						<Menu placement='bottom'>

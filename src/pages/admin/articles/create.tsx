@@ -5,7 +5,7 @@ import { withAdminLayout } from 'src/layouts/admin';
 import { getRoleFromToken } from 'src/helpers/token.helper';
 import { AdminArticleService } from 'src/services/admin-article.service';
 import { AdminCollectionService } from 'src/services/admin-collection.service';
-import { getFileUrl, API_URL } from 'src/config/api.config';
+import { getFileUrl } from 'src/config/api.config';
 import $axios from 'src/api/axios';
 import { CollectionType } from 'src/interfaces/collection.interface';
 import { RichTextEditor } from 'src/components/rich-text-editor/rich-text-editor';
@@ -42,7 +42,7 @@ const CreateArticlePage = () => {
 		const form = new FormData();
 		form.append('pdf', file);
 		try {
-			const { data } = await $axios.post<{ url: string }>(`${API_URL}${getFileUrl('save-pdf')}?folder=articles`, form, {
+			const { data } = await $axios.post<{ url: string }>(`${getFileUrl('save-pdf')}?folder=articles`, form, {
 				headers: { 'Content-Type': 'multipart/form-data' },
 			});
 			setPdfUrl(data.url);

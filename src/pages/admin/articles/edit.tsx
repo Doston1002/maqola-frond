@@ -5,7 +5,7 @@ import { withAdminLayout } from 'src/layouts/admin';
 import { getRoleFromToken } from 'src/helpers/token.helper';
 import { AdminArticleService } from 'src/services/admin-article.service';
 import { AdminCollectionService } from 'src/services/admin-collection.service';
-import { getFileUrl, API_URL } from 'src/config/api.config';
+import { getFileUrl, getArticlesUrl } from 'src/config/api.config';
 import $axios from 'src/api/axios';
 import { CollectionType } from 'src/interfaces/collection.interface';
 import { RichTextEditor } from 'src/components/rich-text-editor/rich-text-editor';
@@ -40,7 +40,7 @@ const EditArticlePage = () => {
 
 	useEffect(() => {
 		if (!id || userRole !== 'ADMIN') return;
-		$axios.get(`${API_URL}/articles/admin/${id}`).then((res) => {
+		$axios.get(getArticlesUrl('admin/' + id)).then((res) => {
 			const a = res.data;
 			setCollectionId(typeof a.collectionId === 'object' ? (a.collectionId as any)?._id : a.collectionId || '');
 			setTitleUz(a.title_uz ?? a.title ?? '');
@@ -65,7 +65,7 @@ const EditArticlePage = () => {
 		const form = new FormData();
 		form.append('pdf', file);
 		try {
-			const { data } = await $axios.post<{ url: string }>(`${API_URL}${getFileUrl('save-pdf')}?folder=articles`, form, {
+			const { data } = await $axios.post<{ url: string }>(`${getFileUrl('save-pdf')}?folder=articles`, form, {
 				headers: { 'Content-Type': 'multipart/form-data' },
 			});
 			setPdfUrl(data.url);
