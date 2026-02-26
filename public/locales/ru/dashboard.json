@@ -1,0 +1,30 @@
+{
+  "tabs": {
+    "account": "Аккаунт",
+    "settings": "Настройки",
+    "my_courses": "Мои курсы",
+    "danger_zone": "Изменить пароль"
+  },
+  "account": {
+    "title": "Информация о вашем аккаунте",
+    "registered": "Дата регистрации",
+    "email_label": "Ваш адрес электронной почты",
+    "courses": "Курсы",
+    "courses_count_suffix": "шт"
+  },
+  "settings": {
+    "email_label": "Email",
+    "first_name_label": "Имя",
+    "last_name_label": "Фамилия",
+    "birthday_label": "Дата рождения",
+    "job_label": "Профессия",
+    "bio_label": "О себе",
+    "submit_btn": "Отправить",
+    "toast_updated": "Профиль успешно обновлён",
+    "toast_file_large": "Размер изображения слишком большой; должен быть менее 2 МБ",
+    "toast_file_type_error": "Ошибка, поддерживаются только файлы PNG и JPG"
+  },
+  "danger": {
+    "change_password_title": "Изменить пароль"
+  }
+}

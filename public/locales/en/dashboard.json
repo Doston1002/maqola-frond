@@ -1,0 +1,30 @@
+{
+  "tabs": {
+    "account": "Account",
+    "settings": "Settings",
+    "my_courses": "My Courses",
+    "danger_zone": "Change password"
+  },
+  "account": {
+    "title": "Your account information",
+    "registered": "Registration date",
+    "email_label": "Your email address",
+    "courses": "Courses",
+    "courses_count_suffix": "items"
+  },
+  "settings": {
+    "email_label": "Email",
+    "first_name_label": "First name",
+    "last_name_label": "Last name",
+    "birthday_label": "Birthday",
+    "job_label": "Profession",
+    "bio_label": "About you",
+    "submit_btn": "Submit",
+    "toast_updated": "Your profile updated successfully",
+    "toast_file_large": "Image size is too large; must be under 2 MB",
+    "toast_file_type_error": "Error, only PNG and JPG files are supported"
+  },
+  "danger": {
+    "change_password_title": "Change password"
+  }
+}

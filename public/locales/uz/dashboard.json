@@ -1,0 +1,30 @@
+{
+  "tabs": {
+    "account": "Hisob",
+    "settings": "Sozlamalar",
+    "my_courses": "Mening kurslarim",
+    "danger_zone": "Parolni o'zgartirish"
+  },
+  "account": {
+    "title": "Hisobingiz haqidagi ma'lumotlar",
+    "registered": "Ro'yxatdan o'tgan sana",
+    "email_label": "Email manzilingiz",
+    "courses": "Kurslar",
+    "courses_count_suffix": "ta"
+  },
+  "settings": {
+    "email_label": "Email",
+    "first_name_label": "Ismingiz",
+    "last_name_label": "Familiyangiz",
+    "birthday_label": "Tug'ilgan sana",
+    "job_label": "Kasbingiz",
+    "bio_label": "O'zingiz haqingizda",
+    "submit_btn": "Yuborish",
+    "toast_updated": "Profilingiz muvaffaqiyatli yangilandi",
+    "toast_file_large": "Rasm hajmi juda katta, 2 MB dan kichik bo'lishi kerak",
+    "toast_file_type_error": "Xatolik, faqat PNG va JPG fayllari qo'llab-quvvatlanadi"
+  },
+  "danger": {
+    "change_password_title": "Parolni o'zgartirish"
+  }
+}
