@@ -6,6 +6,7 @@ import { getRoleFromToken } from 'src/helpers/token.helper';
 import { AdminCollectionService } from 'src/services/admin-collection.service';
 import { getFileUrl, getAssetSrc, getCollectionsUrl } from 'src/config/api.config';
 import $axios from 'src/api/axios';
+import { RichTextEditor } from 'src/components/rich-text-editor/rich-text-editor';
 
 const EditCollectionPage = () => {
 	const router = useRouter();
@@ -105,15 +106,15 @@ const EditCollectionPage = () => {
 				</FormControl>
 				<FormControl mb={4}>
 					<FormLabel>Tavsif (o&apos;zbekcha)</FormLabel>
-					<Input value={description_uz} onChange={(e) => setDescriptionUz(e.target.value)} as="textarea" rows={2} />
+					<RichTextEditor value={description_uz} onChange={setDescriptionUz} placeholder="Tavsif (o'zbekcha)..." minHeight="120px" />
 				</FormControl>
 				<FormControl mb={4}>
 					<FormLabel>Tavsif (ruscha)</FormLabel>
-					<Input value={description_ru} onChange={(e) => setDescriptionRu(e.target.value)} as="textarea" rows={2} />
+					<RichTextEditor value={description_ru} onChange={setDescriptionRu} placeholder="Описание (рус)..." minHeight="120px" />
 				</FormControl>
 				<FormControl mb={4}>
 					<FormLabel>Tavsif (inglizcha)</FormLabel>
-					<Input value={description_en} onChange={(e) => setDescriptionEn(e.target.value)} as="textarea" rows={2} />
+					<RichTextEditor value={description_en} onChange={setDescriptionEn} placeholder="Description (English)..." minHeight="120px" />
 				</FormControl>
 				<FormControl mb={4}>
 					<FormLabel>Yil</FormLabel>

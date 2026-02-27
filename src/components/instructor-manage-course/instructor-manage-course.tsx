@@ -7,7 +7,7 @@ import { FileUploader } from 'react-drag-drop-files';
 import { useTranslation } from 'react-i18next';
 import { FaTimes } from 'react-icons/fa';
 import { GiSave } from 'react-icons/gi';
-import 'react-quill/dist/quill.snow.css';
+import 'react-quill-new/dist/quill.snow.css';
 import { courseCategory, courseLevel, courseLng } from 'src/config/constants';
 import { editorModules } from 'src/config/editor.config';
 import { loadImage } from 'src/helpers/image.helper';
@@ -23,7 +23,7 @@ import TextAreaField from '../text-area-field/text-area-field';
 import TextFiled from '../text-filed/text-filed';
 import { InstructorManageCourseProps } from './instructor-manage-course.props';
 
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 
 const InstructorManageCourse = ({
 	submitHandler,

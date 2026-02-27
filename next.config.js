@@ -1,5 +1,12 @@
-// Backend manzili .env dan — CSP connect-src ga qo'shiladi (bloklanish oldini olish)
-const backendHost = (process.env.NEXT_PUBLIC_API_SERVICE || 'http://localhost:8000').replace(/\/api\/?$/, '');
+// Backend manzili .env dan — development va production uchun alohida o'qiladi
+// DEV: NEXT_PUBLIC_API_SERVICE_DEV (masalan http://localhost:8000)
+// PROD: NEXT_PUBLIC_API_SERVICE (masalan https://api.sizning-domeningiz.uz)
+const rawBackend =
+  process.env.NODE_ENV === 'production'
+    ? process.env.NEXT_PUBLIC_API_SERVICE
+    : process.env.NEXT_PUBLIC_API_SERVICE_DEV || process.env.NEXT_PUBLIC_API_SERVICE;
+
+const backendHost = ((rawBackend || 'http://localhost:8000').trim()).replace(/\/api\/?$/, '');
 
 const securityHeaders = [
   {
@@ -37,10 +44,10 @@ const securityHeaders = [
 const nextConfig = {
   reactStrictMode: false,
   // react-quill va boshqa ESM paketlar buildda to'g'ri bundle bo'lishi uchun
-  transpilePackages: ['react-quill'],
+  transpilePackages: ['react-quill-new'],
   // Lokal development: /api so'rovlari backend (8000) ga yo'naltiriladi, CORS kerak emas
   async rewrites() {
-    const target = process.env.NEXT_PUBLIC_API_SERVICE || 'http://localhost:8000';
+    const target = backendHost || 'http://localhost:8000';
     return [
       { source: '/api/:path*', destination: `${target}/api/:path*` },
       // Rasmlar va PDF same-origin orqali yuklansin (bloklanish oldini olish)

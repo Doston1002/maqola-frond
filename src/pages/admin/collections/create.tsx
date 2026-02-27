@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { Box, Button, FormControl, FormLabel, Input, InputGroup, Switch, useToast } from '@chakra-ui/react';
+import { useState, useEffect } from 'react';
+import { Box, Button, FormControl, FormLabel, Input, Switch, useToast } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { withAdminLayout } from 'src/layouts/admin';
 import { getRoleFromToken } from 'src/helpers/token.helper';
 import { AdminCollectionService } from 'src/services/admin-collection.service';
 import { getFileUrl, getAssetSrc } from 'src/config/api.config';
 import $axios from 'src/api/axios';
-import { useEffect } from 'react';
+import { RichTextEditor } from 'src/components/rich-text-editor/rich-text-editor';
 
 const CreateCollectionPage = () => {
 	const router = useRouter();
@@ -92,15 +92,15 @@ const CreateCollectionPage = () => {
 				</FormControl>
 				<FormControl mb={4}>
 					<FormLabel>Tavsif (o&apos;zbekcha)</FormLabel>
-					<Input value={description_uz} onChange={(e) => setDescriptionUz(e.target.value)} as="textarea" rows={2} />
+					<RichTextEditor value={description_uz} onChange={setDescriptionUz} placeholder="Tavsif (o'zbekcha)..." minHeight="120px" />
 				</FormControl>
 				<FormControl mb={4}>
 					<FormLabel>Tavsif (ruscha)</FormLabel>
-					<Input value={description_ru} onChange={(e) => setDescriptionRu(e.target.value)} as="textarea" rows={2} />
+					<RichTextEditor value={description_ru} onChange={setDescriptionRu} placeholder="Описание (рус)..." minHeight="120px" />
 				</FormControl>
 				<FormControl mb={4}>
 					<FormLabel>Tavsif (inglizcha)</FormLabel>
-					<Input value={description_en} onChange={(e) => setDescriptionEn(e.target.value)} as="textarea" rows={2} />
+					<RichTextEditor value={description_en} onChange={setDescriptionEn} placeholder="Description (English)..." minHeight="120px" />
 				</FormControl>
 				<FormControl mb={4}>
 					<FormLabel>Yil</FormLabel>

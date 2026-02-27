@@ -29,9 +29,10 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
 								password: '',
 							}
 						);
+						const isSecure = process.env.NODE_ENV === 'production' && !req.headers.host?.startsWith('localhost');
 						res.setHeader('Set-Cookie', [
-							serialize('access', response.data.accessToken, { secure: true, path: '/' }),
-							serialize('refresh', response.data.refreshToken, { secure: true, path: '/' }),
+							serialize('access', response.data.accessToken, { secure: isSecure, path: '/', sameSite: 'lax' }),
+							serialize('refresh', response.data.refreshToken, { secure: isSecure, path: '/', sameSite: 'lax' }),
 						]);
 
 						return true;
@@ -45,9 +46,10 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
 								password: '',
 							}
 						);
+						const isSecure = process.env.NODE_ENV === 'production' && !req.headers.host?.startsWith('localhost');
 						res.setHeader('Set-Cookie', [
-							serialize('access', response.data.accessToken, { secure: true, path: '/' }),
-							serialize('refresh', response.data.refreshToken, { secure: true, path: '/' }),
+							serialize('access', response.data.accessToken, { secure: isSecure, path: '/', sameSite: 'lax' }),
+							serialize('refresh', response.data.refreshToken, { secure: isSecure, path: '/', sameSite: 'lax' }),
 						]);
 						return true;
 					}

@@ -3,7 +3,7 @@ import { Form, Formik, FormikValues } from 'formik';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import 'react-quill/dist/quill.snow.css';
+import 'react-quill-new/dist/quill.snow.css';
 import { editLessonModules } from 'src/config/editor.config';
 import { useActions } from 'src/hooks/useActions';
 import { useTypedSelector } from 'src/hooks/useTypedSelector';
@@ -14,7 +14,7 @@ import TextAreaField from '../text-area-field/text-area-field';
 import TextFiled from '../text-filed/text-filed';
 import { LessonFormProps } from './lesson-form.props';
 
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 
 const LessonForm = ({ sectionId, values, onToggle }: LessonFormProps) => {
 	const [initialValues, setInitialValues] = useState(manageLessonValues);

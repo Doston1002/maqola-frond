@@ -1,10 +1,16 @@
 /**
  * Backend manzili — faqat shu joyda (global).
- * .env.local da NEXT_PUBLIC_API_SERVICE o‘rnating (masalan http://localhost:8000 yoki http://89.39.95.12:8000).
+ * Development: NEXT_PUBLIC_API_SERVICE_DEV (masalan http://localhost:8000)
+ * Production: NEXT_PUBLIC_API_SERVICE (masalan https://api.sizning-domeningiz.uz)
  */
-const BACKEND_BASE = (typeof process !== 'undefined' && process.env?.NEXT_PUBLIC_API_SERVICE)
-  ? process.env.NEXT_PUBLIC_API_SERVICE.replace(/\/api\/?$/, '')
-  : 'http://localhost:8000';
+const rawBackend =
+  typeof process !== 'undefined' && process.env
+    ? (process.env.NODE_ENV === 'production'
+        ? process.env.NEXT_PUBLIC_API_SERVICE
+        : process.env.NEXT_PUBLIC_API_SERVICE_DEV || process.env.NEXT_PUBLIC_API_SERVICE)
+    : undefined;
+
+const BACKEND_BASE = ((rawBackend || 'http://localhost:8000').trim()).replace(/\/api\/?$/, '');
 
 /** API so‘rovlari relative /api orqali — Next.js rewrite backendga yo‘naltiradi (CORS/CSP muammosiz) */
 export const API_URL = '/api';
