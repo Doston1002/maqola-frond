@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { withLayout } from 'src/layouts/layout';
 import type { AppProviderProps } from 'src/layouts/layout.props';
 import Seo from 'src/layouts/seo/seo';
+import { siteConfig } from 'src/config/site.config';
 import { useTranslation } from 'react-i18next';
 import { CollectionType } from 'src/interfaces/collection.interface';
 import { CollectionService } from 'src/services/collection.service';
@@ -19,9 +20,10 @@ const CollectionsPage = ({ collections }: CollectionsPageProps) => {
 	const router = useRouter();
 	const { i18n } = useTranslation();
 	const locale = resolveLocale(i18n.resolvedLanguage);
+	const url = `${siteConfig.baseURL}/collections`;
 
 	return (
-		<Seo metaTitle="Journal to'plamlari" metaDescription="Barcha ilmiy journal to'plamlari">
+		<Seo metaTitle="Journal to'plamlari" metaDescription="Barcha ilmiy journal to'plamlari" canonicalUrl={url}>
 			<Container maxW="container.xl" py={10}>
 				<Heading size="lg" mb={6}>Journal to&apos;plamlari</Heading>
 				<SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6}>

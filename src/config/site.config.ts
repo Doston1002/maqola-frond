@@ -1,16 +1,16 @@
 export const siteConfig = {
 	metaData: {
-	  title: "Uyda Ta'lim | Bepul Dasturlash Darslari va Portfolio Platformasi",
+	  title: "Teaching Science | Bepul Dasturlash Darslari va Portfolio Platformasi",
 	  description:
-		"Uyda Ta'lim - o'zbek tilida bepul dasturlash darslari, amaliy loyihalar",
+		"Teaching Science - o'zbek tilida bepul dasturlash darslari, amaliy loyihalar",
 	  author: "Doston Po'latov",
 	  keyword:
-		"uyda ta'lim, uyda-talim.uz, bepul dasturlash,  doston po'latov, dostondev",
+		"teaching-science, teaching-science.uz, bepul dasturlash,  doston po'latov, dostondev",
 	  ogImage: "https://media.graphassets.com/BW4BRUnCQJWCazTdKnVQ",
 	},
-	baseURL: "https://uydatalim.uzedu.uz",
+	baseURL: "https://teaching-science.org",
 	logo: "/images/logoDark.png",
-	logoText: "uyda-talim",
+	logoText: "teaching-science",
 	favicon: "/images/logoDark.png",
   };
   

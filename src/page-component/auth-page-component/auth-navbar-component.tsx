@@ -55,7 +55,7 @@ const AuthNavbarComponent = () => {
 							{colorMode === 'light' ? (
 								<img src="/images/logoDark.png" alt="Logo" width={200} height={100} style={{ display: 'block' }} />
 							) : (
-								<img src="/images/logoWhite.png" alt="Logo" width={200} height={100} style={{ display: 'block' }} />
+								<img src="/images/logoWhite.png" alt="Logo" width={200} height={100} style={{ display: 'block' }} onError={(e) => { e.currentTarget.src = '/images/logoDark.png'; }} />
 							)}
 						</Link>
 					</HStack>

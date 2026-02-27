@@ -49,8 +49,9 @@ const nextConfig = {
   async rewrites() {
     const target = backendHost || 'http://localhost:8000';
     return [
+      // NextAuth: /api/auth/* Next.js da qolsin (session, signin, callback va h.k.)
+      { source: '/api/auth/:path*', destination: '/api/auth/:path*' },
       { source: '/api/:path*', destination: `${target}/api/:path*` },
-      // Rasmlar va PDF same-origin orqali yuklansin (bloklanish oldini olish)
       { source: '/uploads/:path*', destination: `${target}/uploads/:path*` },
     ];
   },

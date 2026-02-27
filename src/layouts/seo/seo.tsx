@@ -9,6 +9,8 @@ const Seo = (props: SeoProps) => {
 		metaDescription = siteConfig.metaData.description,
 		metaKeyword = siteConfig.metaData.keyword,
 		ogImage = siteConfig.metaData.ogImage,
+		canonicalUrl,
+		noIndex,
 	} = props;
 
 	return (
@@ -25,6 +27,18 @@ const Seo = (props: SeoProps) => {
 				<meta name='keyword' content={metaKeyword} />
 				<meta name='author' content={siteConfig.metaData.author} />
 				<meta name='description' content={metaDescription} />
+
+				{/* Robots */}
+				<meta
+					name='robots'
+					content={noIndex ? 'noindex,nofollow' : 'index,follow'}
+				/>
+
+				{/* Canonical URL */}
+				<link
+					rel='canonical'
+					href={canonicalUrl || siteConfig.baseURL}
+				/>
 
 				<meta property='og:title' content={metaTitle} />
 				<meta property='og:description' content={metaDescription} />

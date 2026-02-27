@@ -1,4 +1,5 @@
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
 import { Box, Container, Heading, Text, Button, SimpleGrid, Stack, Tag } from '@chakra-ui/react';
 import { withLayout } from 'src/layouts/layout';
 import type { AppProviderProps } from 'src/layouts/layout.props';
@@ -9,6 +10,7 @@ import { ArticleService } from 'src/services/article.service';
 import { getAssetSrc, getFullAssetUrl, getPdfViewerUrl } from 'src/config/api.config';
 import { SafeHtml } from 'src/components/safe-html/safe-html';
 import { getLocalized, resolveLocale } from 'src/helpers/locale.helper';
+import { siteConfig } from 'src/config/site.config';
 
 interface ArticleSlugPageProps extends AppProviderProps {
 	article: ArticleType;
@@ -26,6 +28,7 @@ const ArticleSlugPage = ({ article }: ArticleSlugPageProps) => {
 		: [];
 	const pdfHref = getFullAssetUrl(article.pdfUrl);
 	const pdfViewerSrc = getPdfViewerUrl(article.pdfUrl);
+	const url = `${siteConfig.baseURL}/articles/${article.slug}`;
 
 	const collection = typeof article.collectionId === 'object' && article.collectionId
 		? (article.collectionId as any)
@@ -39,8 +42,26 @@ const ArticleSlugPage = ({ article }: ArticleSlugPageProps) => {
 	};
 
 	return (
-		<Seo metaTitle={title} metaDescription={abstract || title} children={
+		<Seo metaTitle={title} metaDescription={abstract || title} canonicalUrl={url} children={
 			<Container maxW="container.lg" py={10}>
+				<Head>
+					<script
+						type="application/ld+json"
+						dangerouslySetInnerHTML={{
+							__html: JSON.stringify({
+								'@context': 'https://schema.org',
+								'@type': 'ScholarlyArticle',
+								headline: title,
+								author: article.authors || undefined,
+								datePublished: article.createdAt,
+								description: abstract || title,
+								url,
+								keywords: keywordsList,
+								isPartOf: collectionTitle || undefined,
+							}),
+						}}
+					/>
+				</Head>
 				<Box mb={6}>
 					<Heading size="lg" textAlign="center" mb={3}>
 						{title}

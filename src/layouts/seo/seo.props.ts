@@ -6,4 +6,6 @@ export interface SeoProps {
 	metaDescription?: string;
 	metaKeyword?: string;
 	ogImage?: string;
+	canonicalUrl?: string;
+	noIndex?: boolean;
 }

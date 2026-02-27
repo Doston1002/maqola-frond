@@ -84,7 +84,7 @@ const Header = ({ onToggle }: HeaderProps) => {
 						{colorMode === 'light' ? (
 							<img src="/images/logoDark.png" alt="Logo" width={120} height={80} style={{ display: 'block' }} />
 						) : (
-							<img src="/images/logoWhite.png" alt="Logo" width={120} height={80} style={{ display: 'block' }} />
+							<img src="/images/logoWhite.png" alt="Logo" width={120} height={80} style={{ display: 'block' }} onError={(e) => { e.currentTarget.src = '/images/logoDark.png'; }} />
 						)}
 					</Link>
 				</HStack>

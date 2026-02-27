@@ -1,10 +1,12 @@
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
 import { Box, Container, Heading, Text, Link, Button } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
 import { withLayout } from 'src/layouts/layout';
 import type { AppProviderProps } from 'src/layouts/layout.props';
 import Seo from 'src/layouts/seo/seo';
+import { siteConfig } from 'src/config/site.config';
 import { CollectionType } from 'src/interfaces/collection.interface';
 import { ArticleType } from 'src/interfaces/article.interface';
 import { CollectionService } from 'src/services/collection.service';
@@ -24,10 +26,27 @@ const CollectionSlugPage = ({ collection, articles }: CollectionSlugPageProps) =
 	const locale = resolveLocale(i18n.resolvedLanguage);
 	const collectionTitle = getLocalized(collection as object, 'title', locale);
 	const collectionDescription = getLocalized(collection as object, 'description', locale);
+	const url = `${siteConfig.baseURL}/collections/${collection.slug}`;
 
 	return (
-		<Seo metaTitle={collectionTitle} metaDescription={collectionDescription} children={
+		<Seo metaTitle={collectionTitle} metaDescription={collectionDescription} canonicalUrl={url} children={
 			<Container maxW="container.lg" py={10}>
+				<Head>
+					<script
+						type="application/ld+json"
+						dangerouslySetInnerHTML={{
+							__html: JSON.stringify({
+								'@context': 'https://schema.org',
+								'@type': 'Periodical',
+								name: collectionTitle,
+								description: collectionDescription,
+								url,
+								inLanguage: 'uz',
+								issn: collection.slug,
+							}),
+						}}
+					/>
+				</Head>
 				{collection.coverImage && (
 					<Box
 						as="img"
