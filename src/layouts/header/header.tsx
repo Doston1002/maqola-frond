@@ -222,17 +222,7 @@ const Header = ({ onToggle }: HeaderProps) => {
 					)}
 				</HStack>
 			</Flex>
-			<Box w="full" overflow="hidden" bg="transparent" h="30px" pos="relative" zIndex={-1}>
-				<Box
-					className="moving-red-text"
-					fontWeight="bold"
-					color="red.500"
-					fontSize="lg"
-					whiteSpace="nowrap"
-				>
-					{t('site_test_mode', { ns: 'home' })}
-				</Box>
-			</Box>
+			
 		</Box>
 	);
 };

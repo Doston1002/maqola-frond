@@ -6,6 +6,16 @@ import Seo from 'src/layouts/seo/seo';
 import { ArticleType } from 'src/interfaces/article.interface';
 import { ArticleService } from 'src/services/article.service';
 
+const stripHtml = (s: string | undefined) =>
+	(s || '')
+		.replace(/<[^>]*>/g, ' ')
+		.replace(/&nbsp;/g, ' ')
+		.replace(/&amp;/g, '&')
+		.replace(/&quot;/g, '"')
+		.replace(/&#39;|&apos;/g, "'")
+		.replace(/\s+/g, ' ')
+		.trim();
+
 const ArticlesPage = () => {
 	const router = useRouter();
 	const [q, setQ] = useState((router.query.q as string) || '');
@@ -62,7 +72,11 @@ const ArticlesPage = () => {
 										{a.title}
 									</Link>
 									{a.authors && <Text fontSize="sm" color="gray.600">{a.authors}</Text>}
-									{a.abstract && <Text noOfLines={2} fontSize="sm" mt={2}>{a.abstract}</Text>}
+									{a.abstract && (
+										<Text noOfLines={2} fontSize="sm" mt={2}>
+											{stripHtml(a.abstract)}
+										</Text>
+									)}
 								</Box>
 							))
 						)}
