@@ -72,19 +72,34 @@ const HomePageComponent = ({ collections, stats }: HomePageProps) => {
 					>
 						{c.coverImage && (
 							<Box
-								as="img"
-								src={getAssetSrc(c.coverImage)}
-								alt={getLocalized(c as object, 'title', locale)}
 								mb={3}
-								h="120px"
-								objectFit="cover"
+								h="140px"
 								w="100%"
 								borderRadius="md"
-							/>
+								overflow="hidden"
+								bg="gray.50"
+								display="flex"
+								alignItems="center"
+								justifyContent="center"
+							>
+								<Box
+									as="img"
+									src={getAssetSrc(c.coverImage)}
+									alt={getLocalized(c as object, 'title', locale)}
+									maxH="140px"
+									maxW="100%"
+									w="auto"
+									h="auto"
+									objectFit="contain"
+									objectPosition="center"
+								/>
+							</Box>
 						)}
 						<Heading size="sm">{getLocalized(c as object, 'title', locale)}</Heading>
 						<Text fontSize="sm" color="gray.600" mt={1}>{c.year} yil</Text>
-						<Text noOfLines={2} fontSize="sm" mt={2}>{getLocalized(c as object, 'description', locale)}</Text>
+						<Text noOfLines={2} fontSize="sm" mt={2}>
+							{((getLocalized(c as object, 'description', locale) || '') as string).replace(/<[^>]*>/g, ' ').replace(/&nbsp;/g, ' ').trim()}
+						</Text>
 					</Box>
 				))}
 			</SimpleGrid>

@@ -53,10 +53,12 @@ const CollectionSlugPage = ({ collection, articles }: CollectionSlugPageProps) =
 						src={getAssetSrc(collection.coverImage)}
 						alt={collectionTitle}
 						w="100%"
-						maxH="300px"
-						objectFit="cover"
+						maxH="400px"
+						objectFit="contain"
+						objectPosition="center"
 						borderRadius="lg"
 						mb={6}
+						backgroundColor="gray.50"
 					/>
 				)}
 				<Heading size="xl" mb={2}>{collectionTitle}</Heading>
