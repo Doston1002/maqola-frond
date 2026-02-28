@@ -9,6 +9,7 @@ export const siteConfig = {
 	  ogImage: "https://media.graphassets.com/BW4BRUnCQJWCazTdKnVQ",
 	},
 	baseURL: "https://teaching-science.org",
+	siteName: "Global Journal of Teaching and Science",
 	logo: "/images/logo.png",
 	logoText: "teaching-science",
 	favicon: "/images/logo.png",

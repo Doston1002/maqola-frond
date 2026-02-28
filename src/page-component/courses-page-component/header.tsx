@@ -147,7 +147,7 @@ const Header = () => {
 					<IconButton
 						icon={<FaTelegram />}
 						onClick={() =>
-							window.open('https://t.me/uzedu')
+							window.open('https://t.me/https://t.me/+HIabk0gqQypmMTdi')
 						}
 						aria-label={'comments'}
 						variant={'ghost'}
