@@ -61,7 +61,19 @@ const CollectionSlugPage = ({ collection, articles }: CollectionSlugPageProps) =
 				)}
 				<Heading size="xl" mb={2}>{collectionTitle}</Heading>
 				<Text color="gray.600" mb={4}>{collection.year} yil</Text>
-				<Text mb={8}>{collectionDescription}</Text>
+				{collectionDescription && (
+					<Box
+						mb={8}
+						className="collection-description"
+						sx={{
+							'& p': { mb: 2 },
+							'& ul, & ol': { pl: 6, mb: 2 },
+							'& li': { mb: 1 },
+							'& strong': { fontWeight: 'bold' },
+						}}
+						dangerouslySetInnerHTML={{ __html: collectionDescription }}
+					/>
+				)}
 
 				<Heading size="md" mb={4}>Maqolalar</Heading>
 				<Box as="ul" listStyleType="none">

@@ -52,7 +52,9 @@ const CollectionsPage = ({ collections }: CollectionsPageProps) => {
 							)}
 							<Heading size="sm">{getLocalized(c as object, 'title', locale)}</Heading>
 							<Text fontSize="sm" color="gray.600" mt={1}>{c.year} yil</Text>
-							<Text noOfLines={3} fontSize="sm" mt={2}>{getLocalized(c as object, 'description', locale)}</Text>
+							<Text noOfLines={3} fontSize="sm" mt={2}>
+								{(getLocalized(c as object, 'description', locale) || '').replace(/<[^>]*>/g, ' ').replace(/&nbsp;/g, ' ').trim()}
+							</Text>
 							<Text
 								mt={3}
 								color="blue.600"
