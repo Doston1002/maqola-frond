@@ -31,11 +31,13 @@ export const getAssetSrc = (path: string | undefined): string => {
   return path.startsWith('/') ? path : '/' + path;
 };
 
-/** PDF ni iframe da ko‘rsatish uchun proxy URL (bloklanishsiz) */
+/** PDF ni iframe da ko‘rsatish: backend HTTPS bo‘lsa to‘g‘ri URL, aks holda same-origin proxy */
 export const getPdfViewerUrl = (path: string | undefined): string => {
   if (!path) return '';
   const p = path.startsWith('/') ? path : '/' + path;
   if (!p.startsWith('/uploads/')) return getFullAssetUrl(path);
+  const base = getBaseUrl();
+  if (base.startsWith('https://')) return getFullAssetUrl(path);
   return '/api/proxy-pdf?path=' + encodeURIComponent(p);
 };
 export const ONEID_URL = `${BACKEND_BASE}/`;
