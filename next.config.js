@@ -61,6 +61,8 @@ const nextConfig = {
       ...nextAuthRewrites,
       { source: '/api/auth/signin/:path*', destination: '/api/auth/signin/:path*' },
       { source: '/api/auth/callback/:path*', destination: '/api/auth/callback/:path*' },
+      // PDF proxy Next.js da qoladi (backenddan olib iframe ga beradi)
+      { source: '/api/proxy-pdf', destination: '/api/proxy-pdf' },
       { source: '/api/:path*', destination: `${target}/api/:path*` },
       { source: '/uploads/:path*', destination: `${target}/uploads/:path*` },
     ];

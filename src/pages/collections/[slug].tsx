@@ -102,7 +102,18 @@ const CollectionSlugPage = ({ collection, articles }: CollectionSlugPageProps) =
 								{articleTitle}
 							</Link>
 							{a.authors && <Text fontSize="sm" color="gray.600" mt={1}>{a.authors}</Text>}
-							{articleAbstract && <Text noOfLines={2} fontSize="sm" mt={2}>{articleAbstract.replace(/<[^>]*>/g, ' ')}</Text>}
+							{articleAbstract && (
+								<Text noOfLines={2} fontSize="sm" mt={2}>
+									{articleAbstract
+										.replace(/<[^>]*>/g, ' ')
+										.replace(/&nbsp;/g, ' ')
+										.replace(/&amp;/g, '&')
+										.replace(/&quot;/g, '"')
+										.replace(/&#39;|&apos;/g, "'")
+										.replace(/\s+/g, ' ')
+										.trim()}
+								</Text>
+							)}
 							<Button
 								size="sm"
 								colorScheme="blue"

@@ -9,8 +9,8 @@ export const siteConfig = {
 	  ogImage: "https://media.graphassets.com/BW4BRUnCQJWCazTdKnVQ",
 	},
 	baseURL: "https://teaching-science.org",
-	logo: "/images/logoDark.png",
+	logo: "/images/logo.png",
 	logoText: "teaching-science",
-	favicon: "/images/logoDark.png",
+	favicon: "/images/logo.png",
   };
   

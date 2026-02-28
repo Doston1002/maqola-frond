@@ -1,6 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-const BACKEND = (process.env.NEXT_PUBLIC_API_SERVICE || 'http://localhost:8000').replace(/\/api\/?$/, '');
+const raw = process.env.NODE_ENV === 'production'
+	? process.env.NEXT_PUBLIC_API_SERVICE
+	: (process.env.NEXT_PUBLIC_API_SERVICE_DEV || process.env.NEXT_PUBLIC_API_SERVICE);
+const BACKEND = ((raw || 'http://localhost:8000').trim()).replace(/\/api\/?$/, '');
 
 /**
  * PDF faylni backend dan olib, iframe da ko'rsatish uchun xavfsiz headerlar bilan qaytaradi.
