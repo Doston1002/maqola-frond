@@ -48,9 +48,19 @@ const nextConfig = {
   // Lokal development: /api so'rovlari backend (8000) ga yo'naltiriladi, CORS kerak emas
   async rewrites() {
     const target = backendHost || 'http://localhost:8000';
+    const nextAuthPaths = [
+      '/api/auth/session',
+      '/api/auth/csrf',
+      '/api/auth/providers',
+      '/api/auth/signin',
+      '/api/auth/error',
+    ];
+    const nextAuthRewrites = nextAuthPaths.map((p) => ({ source: p, destination: p }));
     return [
-      // NextAuth: /api/auth/* Next.js da qolsin (session, signin, callback va h.k.)
-      { source: '/api/auth/:path*', destination: '/api/auth/:path*' },
+      // NextAuth: faqat session/signin/callback va h.k. Next.js da
+      ...nextAuthRewrites,
+      { source: '/api/auth/signin/:path*', destination: '/api/auth/signin/:path*' },
+      { source: '/api/auth/callback/:path*', destination: '/api/auth/callback/:path*' },
       { source: '/api/:path*', destination: `${target}/api/:path*` },
       { source: '/uploads/:path*', destination: `${target}/uploads/:path*` },
     ];
