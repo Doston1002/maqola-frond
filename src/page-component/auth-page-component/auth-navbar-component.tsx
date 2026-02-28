@@ -53,9 +53,23 @@ const AuthNavbarComponent = () => {
 						/>
 						<Link href={'/'}>
 							{colorMode === 'light' ? (
-								<img src="/images/logoDark.png" alt="Logo" width={200} height={100} style={{ display: 'block' }} />
+								<img
+									src="/images/logoDark.png"
+									alt="Logo"
+									width={200}
+									height={100}
+									style={{ display: 'block' }}
+									onError={(e) => { e.currentTarget.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; e.currentTarget.alt = 'Logo'; }}
+								/>
 							) : (
-								<img src="/images/logoWhite.png" alt="Logo" width={200} height={100} style={{ display: 'block' }} onError={(e) => { e.currentTarget.src = '/images/logoDark.png'; }} />
+								<img
+									src="/images/logoWhite.png"
+									alt="Logo"
+									width={200}
+									height={100}
+									style={{ display: 'block' }}
+									onError={(e) => { const target = e.currentTarget; if (target.src.includes('logoWhite')) target.src = '/images/logoDark.png'; else target.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; }}
+								/>
 							)}
 						</Link>
 					</HStack>

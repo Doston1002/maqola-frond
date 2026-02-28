@@ -82,9 +82,9 @@ const Header = ({ onToggle }: HeaderProps) => {
 					/>
 					<Link href={'/'}>
 						{colorMode === 'light' ? (
-							<img src="/images/logoDark.png" alt="Logo" width={120} height={80} style={{ display: 'block' }} />
+							<img src="/images/logoDark.png" alt="Logo" width={120} height={80} style={{ display: 'block' }} onError={(e) => { e.currentTarget.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; }} />
 						) : (
-							<img src="/images/logoWhite.png" alt="Logo" width={120} height={80} style={{ display: 'block' }} onError={(e) => { e.currentTarget.src = '/images/logoDark.png'; }} />
+							<img src="/images/logoWhite.png" alt="Logo" width={120} height={80} style={{ display: 'block' }} onError={(e) => { const t = e.currentTarget; if (t.src.includes('logoWhite')) t.src = '/images/logoDark.png'; else t.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; }} />
 						)}
 					</Link>
 				</HStack>
