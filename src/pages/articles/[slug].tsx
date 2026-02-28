@@ -88,10 +88,13 @@ const ArticleSlugPage = ({ article }: ArticleSlugPageProps) => {
 
 						{pdfViewerSrc && (
 							<>
-								<Box mb={4}>
+								<Box mb={2}>
 									<Button colorScheme="blue" size="md" onClick={handleDownload}>
 										PDF
 									</Button>
+									<Text fontSize="sm" color="gray.600" mt={2}>
+										Agar PDF yuqorida ko&apos;rinmasa, &quot;PDF&quot; tugmasi orqali yangi oynada oching.
+									</Text>
 								</Box>
 								<Box
 									as="iframe"

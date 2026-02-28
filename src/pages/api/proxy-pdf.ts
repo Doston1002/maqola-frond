@@ -20,7 +20,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 	}
 	const url = `${BACKEND}${path.startsWith('/') ? path : '/' + path}`;
 	try {
-		const resp = await fetch(url, { headers: { Accept: 'application/pdf' } });
+		const controller = new AbortController();
+		const timeout = setTimeout(() => controller.abort(), 15000);
+		const resp = await fetch(url, {
+			headers: { Accept: 'application/pdf' },
+			signal: controller.signal,
+		});
+		clearTimeout(timeout);
 		if (!resp.ok) {
 			return res.status(resp.status).end();
 		}
