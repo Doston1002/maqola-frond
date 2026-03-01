@@ -7,6 +7,11 @@ const rawBackend =
     : process.env.NEXT_PUBLIC_API_SERVICE_DEV || process.env.NEXT_PUBLIC_API_SERVICE;
 
 const backendHost = ((rawBackend || 'http://localhost:8000').trim()).replace(/\/api\/?$/, '');
+// PDF iframe uchun backend HTTPS bo'lsa frame-src ga qo'shamiz
+const frameSrcList = ["'self'", 'https://www.youtube.com', 'https://www.youtube-nocookie.com'];
+if (backendHost.startsWith('https://')) {
+  frameSrcList.push(backendHost);
+}
 
 const securityHeaders = [
   {
@@ -17,7 +22,7 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: [
       "frame-ancestors 'none'",
-      "frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com",
+      'frame-src ' + frameSrcList.join(' '),
       "default-src 'self'",
       "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
       "style-src 'self' 'unsafe-inline'",

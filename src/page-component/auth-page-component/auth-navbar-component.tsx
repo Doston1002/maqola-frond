@@ -59,7 +59,7 @@ const AuthNavbarComponent = () => {
 									width={200}
 									height={100}
 									style={{ display: 'block' }}
-									onError={(e) => { e.currentTarget.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; e.currentTarget.alt = 'Logo'; }}
+									onError={(e) => { const t = e.currentTarget; if (!t.src.endsWith('/images/logo.png')) t.src = '/images/logo.png'; else t.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; }}
 								/>
 							) : (
 								<img
