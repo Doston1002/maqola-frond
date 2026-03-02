@@ -97,7 +97,7 @@ export const categories = [
 export const trustedCompeny = [
 	{
 	  name: "Maktab va maktabgacha ta'lim vazirligi",
-	  url: 'https://uzedu.uz/uz',
+	  url: 'https://t.me/+HIabk0gqQypmMTdi',
 	  logo: '/images/logovazirlik.png', // logoni joylashuvi
 	},
 	
