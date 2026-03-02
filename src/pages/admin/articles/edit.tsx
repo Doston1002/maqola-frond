@@ -68,16 +68,28 @@ const EditArticlePage = () => {
 		form.append('pdf', file);
 		const token = Cookies.get('access');
 		const uploadUrl = `${getBaseUrl()}/api/file/save-pdf?folder=articles`;
+		if (!token) {
+			toast({ title: 'Avval tizimga kiring (token yo\'q)', status: 'error' });
+			return;
+		}
 		try {
-			// To'g'ridan-to'g'ri backend ga — Vercel body limiti (502) dan qochish
 			const { data } = await axios.post<{ url: string }>(uploadUrl, form, {
-				headers: token ? { Authorization: `Bearer ${token}` } : {},
+				headers: { Authorization: `Bearer ${token}` },
 				withCredentials: true,
+				timeout: 60000,
 			});
 			setPdfUrl(data.url);
 			toast({ title: 'PDF yuklandi', status: 'success' });
-		} catch {
-			toast({ title: 'PDF yuklash xatolik', status: 'error' });
+		} catch (err: any) {
+			const status = err?.response?.status;
+			const msg = err?.response?.data?.message || err?.message;
+			if (status === 401) {
+				toast({ title: 'Sessiya tugadi. Sahifani yangilab qayta kiring.', status: 'error' });
+			} else if (status === 413) {
+				toast({ title: 'PDF juda katta (max 50 MB)', status: 'error' });
+			} else {
+				toast({ title: msg ? `PDF xato: ${String(msg).slice(0, 50)}` : 'PDF yuklash xatolik', status: 'error', duration: 5000 });
+			}
 		}
 	};
 
