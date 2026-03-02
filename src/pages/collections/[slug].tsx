@@ -68,6 +68,8 @@ const CollectionSlugPage = ({ collection, articles }: CollectionSlugPageProps) =
 						mb={8}
 						className="collection-description"
 						sx={{
+							wordBreak: 'normal',
+							overflowWrap: 'break-word',
 							'& p': { mb: 2 },
 							'& ul, & ol': { pl: 6, mb: 2 },
 							'& li': { mb: 1 },

@@ -34,6 +34,8 @@ body {
 
 .ql-editor {
 	min-height: 150px;
+	word-break: normal;
+	overflow-wrap: break-word;
 }
 
 /* File uploader component */

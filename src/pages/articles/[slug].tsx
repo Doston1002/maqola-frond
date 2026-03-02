@@ -80,7 +80,7 @@ const ArticleSlugPage = ({ article }: ArticleSlugPageProps) => {
 				<SimpleGrid columns={{ base: 1, md: 3 }} gap={8}>
 					<Box gridColumn={{ base: 'span 1', md: 'span 2' }}>
 						{abstract && (
-							<Box mb={6}>
+							<Box mb={6} sx={{ wordBreak: 'normal', overflowWrap: 'break-word' }}>
 								<Heading size="md" mb={3}>Abstract</Heading>
 								<SafeHtml html={abstract} className="ql-editor" />
 							</Box>
