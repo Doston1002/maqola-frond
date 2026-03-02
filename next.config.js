@@ -28,7 +28,7 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: https:",
       "font-src 'self' data:",
-      "connect-src 'self' http://localhost:8000 http://127.0.0.1:8000 " + backendHost + " https://uydatalim.uzedu.uz https://api.uydatalim.uzedu.uz",
+      "connect-src 'self' http://localhost:8000 http://127.0.0.1:8000 " + backendHost + " https://api.teaching-science.org https://uydatalim.uzedu.uz https://api.uydatalim.uzedu.uz",
     ].join('; '),
   },
   {
