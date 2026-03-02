@@ -65,9 +65,8 @@ const EditArticlePage = () => {
 		const form = new FormData();
 		form.append('pdf', file);
 		try {
-			const { data } = await $axios.post<{ url: string }>(`${getFileUrl('save-pdf')}?folder=articles`, form, {
-				headers: { 'Content-Type': 'multipart/form-data' },
-			});
+			// Content-Type o'rnatmaslik — axios FormData uchun boundary bilan o'zi yuboradi
+			const { data } = await $axios.post<{ url: string }>(`${getFileUrl('save-pdf')}?folder=articles`, form);
 			setPdfUrl(data.url);
 			toast({ title: 'PDF yuklandi', status: 'success' });
 		} catch {

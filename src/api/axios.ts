@@ -16,7 +16,10 @@ const $axios = axios.create({
 $axios.interceptors.request.use(config => {
 	const accessToken = Cookies.get('access');
 	if (config && accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
-
+	// FormData yuborilganda Content-Type ni o'rnatmaslik — brauzer boundary bilan yuboradi (PDF yuklash uchun)
+	if (config.data instanceof FormData) {
+		delete config.headers['Content-Type'];
+	}
 	return config;
 });
 
