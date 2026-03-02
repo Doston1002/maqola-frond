@@ -5,10 +5,8 @@ import { withAdminLayout } from 'src/layouts/admin';
 import { getRoleFromToken } from 'src/helpers/token.helper';
 import { AdminArticleService } from 'src/services/admin-article.service';
 import { AdminCollectionService } from 'src/services/admin-collection.service';
-import Cookies from 'js-cookie';
-import { getBaseUrl, getArticlesUrl } from 'src/config/api.config';
+import { getFileUrl, getArticlesUrl } from 'src/config/api.config';
 import $axios from 'src/api/axios';
-import axios from 'axios';
 import { CollectionType } from 'src/interfaces/collection.interface';
 import { RichTextEditor } from 'src/components/rich-text-editor/rich-text-editor';
 
@@ -66,16 +64,8 @@ const EditArticlePage = () => {
 		if (!file) return;
 		const form = new FormData();
 		form.append('pdf', file);
-		const token = Cookies.get('access');
-		const uploadUrl = `${getBaseUrl()}/api/file/save-pdf?folder=articles`;
-		if (!token) {
-			toast({ title: 'Avval tizimga kiring (token yo\'q)', status: 'error' });
-			return;
-		}
 		try {
-			const { data } = await axios.post<{ url: string }>(uploadUrl, form, {
-				headers: { Authorization: `Bearer ${token}` },
-				withCredentials: true,
+			const { data } = await $axios.post<{ url: string }>(`${getFileUrl('save-pdf')}?folder=articles`, form, {
 				timeout: 60000,
 			});
 			setPdfUrl(data.url);
