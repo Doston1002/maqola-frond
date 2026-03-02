@@ -5,8 +5,10 @@ import { withAdminLayout } from 'src/layouts/admin';
 import { getRoleFromToken } from 'src/helpers/token.helper';
 import { AdminArticleService } from 'src/services/admin-article.service';
 import { AdminCollectionService } from 'src/services/admin-collection.service';
-import { getFileUrl, getArticlesUrl } from 'src/config/api.config';
+import Cookies from 'js-cookie';
+import { getBaseUrl, getArticlesUrl } from 'src/config/api.config';
 import $axios from 'src/api/axios';
+import axios from 'axios';
 import { CollectionType } from 'src/interfaces/collection.interface';
 import { RichTextEditor } from 'src/components/rich-text-editor/rich-text-editor';
 
@@ -64,9 +66,14 @@ const EditArticlePage = () => {
 		if (!file) return;
 		const form = new FormData();
 		form.append('pdf', file);
+		const token = Cookies.get('access');
+		const uploadUrl = `${getBaseUrl()}/api/file/save-pdf?folder=articles`;
 		try {
-			// Content-Type o'rnatmaslik — axios FormData uchun boundary bilan o'zi yuboradi
-			const { data } = await $axios.post<{ url: string }>(`${getFileUrl('save-pdf')}?folder=articles`, form);
+			// To'g'ridan-to'g'ri backend ga — Vercel body limiti (502) dan qochish
+			const { data } = await axios.post<{ url: string }>(uploadUrl, form, {
+				headers: token ? { Authorization: `Bearer ${token}` } : {},
+				withCredentials: true,
+			});
 			setPdfUrl(data.url);
 			toast({ title: 'PDF yuklandi', status: 'success' });
 		} catch {
