@@ -36,6 +36,25 @@ body {
 	min-height: 150px;
 	word-break: normal;
 	overflow-wrap: break-word;
+	white-space: normal;
+}
+
+/* Abstract / ko'rsatish rejimida — harfma-harf bo'linishni oldini olish (Quill bir harf = bir tag saqlasa) */
+.ql-editor.article-abstract,
+.article-abstract.ql-editor {
+	white-space: normal;
+}
+.ql-editor.article-abstract p,
+.article-abstract.ql-editor p {
+	display: inline;
+}
+.ql-editor.article-abstract p::after,
+.article-abstract.ql-editor p::after {
+	content: '';
+}
+.ql-editor.article-abstract span,
+.article-abstract.ql-editor span {
+	display: inline !important;
 }
 
 /* File uploader component */

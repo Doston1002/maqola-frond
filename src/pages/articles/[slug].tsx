@@ -82,7 +82,7 @@ const ArticleSlugPage = ({ article }: ArticleSlugPageProps) => {
 						{abstract && (
 							<Box mb={6} sx={{ wordBreak: 'normal', overflowWrap: 'break-word' }}>
 								<Heading size="md" mb={3}>Abstract</Heading>
-								<SafeHtml html={abstract} className="ql-editor" />
+								<SafeHtml html={abstract} className="ql-editor article-abstract" />
 							</Box>
 						)}
 
