@@ -13,12 +13,15 @@ const $axios = axios.create({
 	},
 });
 
+const PDF_UPLOAD_TIMEOUT_MS = 180000; // 3 daqiqa — 50MB gacha PDF
+
 $axios.interceptors.request.use(config => {
 	const accessToken = Cookies.get('access');
 	if (config && accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
 	// FormData yuborilganda Content-Type ni o'rnatmaslik — brauzer boundary bilan yuboradi (PDF yuklash uchun)
 	if (config.data instanceof FormData) {
 		delete config.headers['Content-Type'];
+		if (config.timeout == null) config.timeout = PDF_UPLOAD_TIMEOUT_MS;
 	}
 	return config;
 });

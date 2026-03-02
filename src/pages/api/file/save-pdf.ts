@@ -9,7 +9,7 @@ const BACKEND = ((raw || 'http://localhost:8000').trim()).replace(/\/api\/?$/, '
 /** PDF yuklash: 1MB+ fayllar uchun body limit 50MB — rewrite o‘rniga shu route ishlatiladi */
 export const config = {
   api: {
-    bodyParser: false,
+    bodyParser: false, // body ni o‘zimiz 50MB limit bilan o‘qiymiz (streamRequestBody)
   },
 };
 
@@ -27,13 +27,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const contentType = req.headers['content-type'];
   if (contentType) headers['Content-Type'] = contentType;
 
+  const UPLOAD_TIMEOUT_MS = 180000; // 3 daqiqa — katta PDF uchun
+
   try {
     const body = await streamRequestBody(req, 50 * 1024 * 1024);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), UPLOAD_TIMEOUT_MS);
     const backendRes = await fetch(url, {
       method: 'POST',
       headers,
       body: body as unknown as BodyInit,
+      signal: controller.signal,
     });
+    clearTimeout(timeoutId);
     const data = await backendRes.json().catch(() => ({}));
     res.status(backendRes.status).json(data);
   } catch (err: any) {

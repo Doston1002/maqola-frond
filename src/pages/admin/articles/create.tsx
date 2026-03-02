@@ -43,7 +43,7 @@ const CreateArticlePage = () => {
 		form.append('pdf', file);
 		try {
 			const { data } = await $axios.post<{ url: string }>(`${getFileUrl('save-pdf')}?folder=articles`, form, {
-				timeout: 60000,
+				timeout: 180000, // 3 daqiqa — katta PDF (50MB gacha) uchun
 			});
 			setPdfUrl(data.url);
 			toast({ title: 'PDF yuklandi', status: 'success' });
@@ -53,7 +53,11 @@ const CreateArticlePage = () => {
 			if (status === 401) {
 				toast({ title: 'Sessiya tugadi. Sahifani yangilab qayta kiring.', status: 'error' });
 			} else if (status === 413) {
-				toast({ title: 'PDF juda katta (max 50 MB)', status: 'error' });
+				toast({
+					title: 'PDF rad etildi (413). Backend serverda Nginx da client_max_body_size 50M sozlang.',
+					status: 'error',
+					duration: 8000,
+				});
 			} else {
 				toast({ title: msg ? `PDF xato: ${String(msg).slice(0, 50)}` : 'PDF yuklash xatolik', status: 'error', duration: 5000 });
 			}

@@ -72,6 +72,8 @@ const nextConfig = {
       { source: '/api/auth/callback/:path*', destination: '/api/auth/callback/:path*' },
       // PDF proxy Next.js da qoladi (backenddan olib iframe ga beradi)
       { source: '/api/proxy-pdf', destination: '/api/proxy-pdf' },
+      // PDF yuklash (50MB gacha) — mahalliy API route orqali, keyin backendga
+      { source: '/api/file/save-pdf', destination: '/api/file/save-pdf' },
       { source: '/api/:path*', destination: `${target}/api/:path*` },
       { source: '/uploads/:path*', destination: `${target}/uploads/:path*` },
     ];
