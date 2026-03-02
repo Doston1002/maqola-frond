@@ -48,6 +48,10 @@ const securityHeaders = [
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
+  // PDF yuklash (save-pdf) 50MB gacha — proxy orqali backendga yuborilganda body limit
+  experimental: {
+    proxyClientMaxBodySize: '50mb',
+  },
   // react-quill va boshqa ESM paketlar buildda to'g'ri bundle bo'lishi uchun
   transpilePackages: ['react-quill-new'],
   // Lokal development: /api so'rovlari backend (8000) ga yo'naltiriladi, CORS kerak emas

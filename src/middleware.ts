@@ -74,9 +74,10 @@ export function middleware(request: NextRequest) {
 	// Content Security Policy:
 	//  - frame-ancestors 'none'  -> bizning saytni boshqa saytlar iframe ichiga qo'ya olmaydi
 	//  - frame-src youtube       -> biz o'zimiz YouTube videolarini iframe orqali qo'ya olamiz
+	// connect-src: API (PDF yuklash va boshqa so'rovlar) — same-origin /api va backend domeni
 	response.headers.set(
 		'Content-Security-Policy',
-		"frame-ancestors 'none'; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com; default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' http://localhost:8000 http://127.0.0.1:8000 https://api.teaching-science.org https://uydatalim.uzedu.uz https://api.uydatalim.uzedu.uz;"
+		"frame-ancestors 'none'; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com; default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' http://localhost:8000 http://127.0.0.1:8000 https://api.teaching-science.org https://www.teaching-science.org https://teaching-science.org https://uydatalim.uzedu.uz https://api.uydatalim.uzedu.uz;"
 	);
 	
 	// X-Content-Type-Options - MIME type sniffing'ni oldini olish
