@@ -1,0 +1,13 @@
+# Google Scholar va boshqa qidiruv tizimlari uchun
+User-agent: *
+Allow: /
+Allow: /articles
+Allow: /articles/
+Allow: /collections
+Allow: /collections/
+
+# Admin va API qismlarini indekslamaslik (ixtiyoriy)
+Disallow: /admin
+Disallow: /api/
+
+Sitemap: https://teaching-science.org/sitemap.xml

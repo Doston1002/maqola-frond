@@ -74,6 +74,8 @@ const nextConfig = {
       { source: '/api/proxy-pdf', destination: '/api/proxy-pdf' },
       // PDF yuklash (50MB gacha) — mahalliy API route orqali, keyin backendga
       { source: '/api/file/save-pdf', destination: '/api/file/save-pdf' },
+      // Google Scholar / qidiruv: sitemap.xml
+      { source: '/sitemap.xml', destination: '/api/sitemap' },
       { source: '/api/:path*', destination: `${target}/api/:path*` },
       { source: '/uploads/:path*', destination: `${target}/uploads/:path*` },
     ];

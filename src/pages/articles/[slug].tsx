@@ -36,6 +36,20 @@ const ArticleSlugPage = ({ article }: ArticleSlugPageProps) => {
 	const collectionTitle = collection ? getLocalized(collection as object, 'title', locale) : '';
 	const collectionYear = collection?.year;
 
+	// Google Scholar: plain text abstract (strip HTML)
+	const plainAbstract = (typeof abstract === 'string' && abstract)
+		? abstract.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim()
+		: '';
+	// Publication date for Scholar: year or ISO date
+	const publicationDate = collectionYear
+		? String(collectionYear)
+		: (article.createdAt ? new Date(article.createdAt).toISOString().slice(0, 10) : '');
+	// Authors list for citation_author (one meta per author)
+	const authorList = (article.authors || '')
+		.split(/[,;]/)
+		.map((a) => a.trim())
+		.filter(Boolean);
+
 	const handleDownload = () => {
 		ArticleService.recordDownload(article.slug).catch(() => {});
 		window.open(pdfHref, '_blank');
@@ -45,6 +59,27 @@ const ArticleSlugPage = ({ article }: ArticleSlugPageProps) => {
 		<Seo metaTitle={title} metaDescription={abstract || title} canonicalUrl={url} children={
 			<Container maxW="container.lg" py={10}>
 				<Head>
+					{/* Google Scholar: citation meta tags (Highwire Press) */}
+					<meta name="citation_title" content={title} />
+					{authorList.length > 0
+						? authorList.map((author) => (
+							<meta key={author} name="citation_author" content={author} />
+						))
+						: article.authors && <meta name="citation_author" content={article.authors} />}
+					{publicationDate && <meta name="citation_publication_date" content={publicationDate} />}
+					{plainAbstract && <meta name="citation_abstract" content={plainAbstract} />}
+					{pdfHref && <meta name="citation_pdf_url" content={pdfHref} />}
+					{collectionTitle && <meta name="citation_journal_title" content={collectionTitle} />}
+					{siteConfig.siteName && <meta name="citation_publisher" content={siteConfig.siteName} />}
+					{article.doi && <meta name="citation_doi" content={article.doi} />}
+					{keywordsList.length > 0 && (
+						<meta name="citation_keywords" content={keywordsList.join(', ')} />
+					)}
+					<meta name="citation_language" content={locale === 'uz' ? 'uz' : locale === 'ru' ? 'ru' : 'en'} />
+					{article.createdAt && (
+						<meta name="citation_online_date" content={new Date(article.createdAt).toISOString().slice(0, 10)} />
+					)}
+
 					<script
 						type="application/ld+json"
 						dangerouslySetInnerHTML={{
@@ -52,12 +87,16 @@ const ArticleSlugPage = ({ article }: ArticleSlugPageProps) => {
 								'@context': 'https://schema.org',
 								'@type': 'ScholarlyArticle',
 								headline: title,
-								author: article.authors || undefined,
-								datePublished: article.createdAt,
-								description: abstract || title,
+								author: authorList.length > 0
+									? authorList.map((name) => ({ '@type': 'Person', name }))
+									: (article.authors ? { '@type': 'Person', name: article.authors } : undefined),
+								datePublished: publicationDate || article.createdAt,
+								description: plainAbstract || title,
 								url,
-								keywords: keywordsList,
-								isPartOf: collectionTitle || undefined,
+								keywords: keywordsList.length ? keywordsList.join(', ') : undefined,
+								isPartOf: collectionTitle ? { '@type': 'PublicationVolume', name: collectionTitle } : undefined,
+								...(pdfHref && { associatedMedia: { '@type': 'MediaObject', contentUrl: pdfHref, encodingFormat: 'application/pdf' } }),
+								...(article.doi && { identifier: { '@type': 'PropertyValue', propertyID: 'DOI', value: article.doi } }),
 							}),
 						}}
 					/>
