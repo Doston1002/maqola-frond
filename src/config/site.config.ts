@@ -10,6 +10,8 @@ export const siteConfig = {
 	},
 	baseURL: "https://teaching-science.org",
 	siteName: "Global Journal of Teaching and Science",
+	/** Google Search Console tasdiqlash kodi (meta tag usuli) */
+	googleSiteVerification: "lmv6GfAj0l-OLoRsQcO5rsMorG_utM2Nz2xaKscm_VI",
 	logo: "/images/logo.png",
 	logoText: "teaching-science",
 	favicon: "/images/logo.png",

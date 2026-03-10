@@ -27,6 +27,9 @@ const Seo = (props: SeoProps) => {
 				<meta name='keyword' content={metaKeyword} />
 				<meta name='author' content={siteConfig.metaData.author} />
 				<meta name='description' content={metaDescription} />
+				{siteConfig.googleSiteVerification && (
+					<meta name="google-site-verification" content={siteConfig.googleSiteVerification} />
+				)}
 
 				{/* Robots */}
 				<meta
