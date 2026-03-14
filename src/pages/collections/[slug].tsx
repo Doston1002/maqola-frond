@@ -27,11 +27,27 @@ const CollectionSlugPage = ({ collection, articles }: CollectionSlugPageProps) =
 	const collectionTitle = getLocalized(collection as object, 'title', locale);
 	const collectionDescription = getLocalized(collection as object, 'description', locale);
 	const url = `${siteConfig.baseURL}/collections/${collection.slug}`;
+	const ogImageUrl = collection.coverImage ? getFullAssetUrl(collection.coverImage) : undefined;
+	const breadcrumbList = {
+		'@context': 'https://schema.org',
+		'@type': 'BreadcrumbList',
+		itemListElement: [
+			{ '@type': 'ListItem', position: 1, name: 'Bosh sahifa', item: siteConfig.baseURL },
+			{ '@type': 'ListItem', position: 2, name: 'To\'plamlar', item: `${siteConfig.baseURL}/collections` },
+			{ '@type': 'ListItem', position: 3, name: collectionTitle, item: url },
+		],
+	};
 
 	return (
-		<Seo metaTitle={collectionTitle} metaDescription={collectionDescription} canonicalUrl={url} children={
+		<Seo
+			metaTitle={collectionTitle}
+			metaDescription={collectionDescription}
+			canonicalUrl={url}
+			ogImage={ogImageUrl}
+			children={
 			<Container maxW="container.lg" py={10}>
 				<Head>
+					<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbList) }} />
 					<script
 						type="application/ld+json"
 						dangerouslySetInnerHTML={{

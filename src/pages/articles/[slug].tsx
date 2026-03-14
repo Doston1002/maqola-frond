@@ -55,10 +55,29 @@ const ArticleSlugPage = ({ article }: ArticleSlugPageProps) => {
 		window.open(pdfHref, '_blank');
 	};
 
+	const ogImageUrl = collection?.coverImage ? getFullAssetUrl(collection.coverImage) : undefined;
+	const breadcrumbList = {
+		'@context': 'https://schema.org',
+		'@type': 'BreadcrumbList',
+		itemListElement: [
+			{ '@type': 'ListItem', position: 1, name: 'Bosh sahifa', item: siteConfig.baseURL },
+			{ '@type': 'ListItem', position: 2, name: 'To\'plamlar', item: `${siteConfig.baseURL}/collections` },
+			...(collection ? [{ '@type': 'ListItem' as const, position: 3, name: collectionTitle, item: `${siteConfig.baseURL}/collections/${collection.slug}` }] : []),
+			{ '@type': 'ListItem', position: collection ? 4 : 3, name: title, item: url },
+		],
+	};
+
 	return (
-		<Seo metaTitle={title} metaDescription={abstract || title} canonicalUrl={url} children={
+		<Seo
+			metaTitle={title}
+			metaDescription={plainAbstract || title}
+			canonicalUrl={url}
+			ogImage={ogImageUrl}
+			ogType="article"
+			children={
 			<Container maxW="container.lg" py={10}>
 				<Head>
+					<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbList) }} />
 					{/* Google Scholar: citation meta tags (Highwire Press) */}
 					<meta name="citation_title" content={title} />
 					{authorList.length > 0
@@ -186,7 +205,8 @@ const ArticleSlugPage = ({ article }: ArticleSlugPageProps) => {
 					</Box>
 				</SimpleGrid>
 			</Container>
-		} />
+		}
+		/>
 	);
 };
 
