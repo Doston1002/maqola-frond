@@ -1,6 +1,10 @@
 // Backend manzili .env dan — development va production uchun alohida o'qiladi
 // DEV: NEXT_PUBLIC_API_SERVICE_DEV (masalan http://localhost:8000)
-// PROD: NEXT_PUBLIC_API_SERVICE (masalan https://api.sizning-domeningiz.uz)
+// PROD: NEXT_PUBLIC_API_SERVICE (masalan https://api.teaching-science.org)
+//
+// MUHIM (production): "next build" ishlatilganda NEXT_PUBLIC_API_SERVICE o'rnatilgan bo'lishi kerak,
+// aks holda rewrite'lar localhost:8000 ga yo'naladi va kirish ishlamaydi.
+// Frontend Node server (next start) bilan ishga tushirilishi kerak — static export'da /api rewrite'lar ishlamaydi.
 const rawBackend =
   process.env.NODE_ENV === 'production'
     ? process.env.NEXT_PUBLIC_API_SERVICE

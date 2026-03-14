@@ -1,8 +1,6 @@
-import axios from 'axios';
 import Cookies from 'js-cookie';
 import $axios from 'src/api/axios';
 import {
-	API_URL,
 	getAuthUrl,
 	getMailUrl,
 	getUserUrl,
@@ -15,8 +13,8 @@ import { AuthUserResponse } from 'src/store/user/user.interface';
 
 export const AuthService = {
 	async register(email: string, password: string, recaptchaToken: string) {
-		const response = await axios.post<AuthUserResponse>(
-			`${API_URL}${getAuthUrl('register')}`,
+		const response = await $axios.post<AuthUserResponse>(
+			getAuthUrl('register'),
 			{
 				email,
 				password,
@@ -34,8 +32,8 @@ export const AuthService = {
 	async login(email: string, password: string, recaptchaToken?: string) {
 		const body: { email: string; password: string; recaptchaToken?: string } = { email, password };
 		if (recaptchaToken) body.recaptchaToken = recaptchaToken;
-		const response = await axios.post<AuthUserResponse>(
-			`${API_URL}${getAuthUrl('login')}`,
+		const response = await $axios.post<AuthUserResponse>(
+			getAuthUrl('login'),
 			body
 		);
 
@@ -48,8 +46,8 @@ export const AuthService = {
 
 	/** Admin: faqat email va parol bilan kirish */
 	async loginAdmin(email: string, password: string) {
-		const response = await axios.post<AuthUserResponse>(
-			`${API_URL}${getAuthUrl('login')}`,
+		const response = await $axios.post<AuthUserResponse>(
+			getAuthUrl('login'),
 			{ email, password }
 		);
 		if (response.data.accessToken) {
@@ -59,8 +57,8 @@ export const AuthService = {
 	},
 
 	async oneIdLogin(code: string) {
-		const response = await axios.post<AuthUserResponse & { oneIdAccessToken?: string }>(
-			`${API_URL}${getAuthUrl('oneid/callback')}`,
+		const response = await $axios.post<AuthUserResponse & { oneIdAccessToken?: string }>(
+			getAuthUrl('oneid/callback'),
 			{ code }
 		);
 
@@ -77,8 +75,8 @@ export const AuthService = {
 	},
 
 	async sendOtp(email: string, isUser: boolean, recaptchaToken?: string) {
-		const response = await axios.post<'Success'>(
-			`${API_URL}${getMailUrl('send-otp')}`,
+		const response = await $axios.post<'Success'>(
+			getMailUrl('send-otp'),
 			{
 				email,
 				isUser,
@@ -90,8 +88,8 @@ export const AuthService = {
 	},
 
 	async verifyOtp(email: string, otpVerification: string) {
-		const response = await axios.post<'Success'>(
-			`${API_URL}${getMailUrl('verify-otp')}`,
+		const response = await $axios.post<'Success'>(
+			getMailUrl('verify-otp'),
 			{
 				email,
 				otpVerification,
@@ -102,19 +100,19 @@ export const AuthService = {
 	},
 
 	async editProfilePassword(email: string, password: string, token: string) {
-		const response = await axios.put<'Success'>(
-		  `${API_URL}${getUserUrl('edit-password')}`,
-		  { email, password },
-		  {
-			headers: { 'Authorization': `Bearer ${token}` }
-		  }
+		const response = await $axios.put<'Success'>(
+			getUserUrl('edit-password'),
+			{ email, password },
+			{
+				headers: { 'Authorization': `Bearer ${token}` }
+			}
 		);
 		return response;
-	  },
+	},
 
 	async checkUser(email: string) {
-		const respone = await axios.post<'user' | 'no-user'>(
-			`${API_URL}${getAuthUrl('check-user')}`,
+		const respone = await $axios.post<'user' | 'no-user'>(
+			getAuthUrl('check-user'),
 			{
 				email,
 			}
@@ -129,7 +127,7 @@ export const AuthService = {
 			const accessToken = Cookies.get('access');
 			if (accessToken) {
 				try {
-					await $axios.post(`${getAuthUrl('logout')}`);
+					await $axios.post(getAuthUrl('logout'));
 				} catch (error) {
 					// Xatolik bo'lsa ham davom etish (cookie larni tozalash kerak)
 					console.error('Backend logout xatolik:', error);
@@ -142,8 +140,8 @@ export const AuthService = {
 			// Agar OneID access_token bor bo'lsa, OneID logout endpointini chaqirish
 			if (oneIdAccessToken) {
 				try {
-					await axios.post(
-						`${API_URL}${getAuthUrl('oneid/logout')}`,
+					await $axios.post(
+						getAuthUrl('oneid/logout'),
 						{ access_token: oneIdAccessToken }
 					);
 				} catch (error) {
@@ -164,8 +162,8 @@ export const AuthService = {
 
 	async getNewTokens() {
 		const refreshToken = Cookies.get('refresh');
-		const response = await axios.post(
-			`${API_URL}${getAuthUrl('access')}`,
+		const response = await $axios.post(
+			getAuthUrl('access'),
 			{ refreshToken }
 		);
 
@@ -178,12 +176,10 @@ export const AuthService = {
 
 	async checkInstructor(token?: string) {
 		try {
-			const { data } = await axios.get(
-				`${API_URL}${getAuthUrl('check-instructor')}`,
+			const { data } = await $axios.get(
+				getAuthUrl('check-instructor'),
 				{
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
+					headers: token ? { Authorization: `Bearer ${token}` } : {},
 				}
 			);
 
