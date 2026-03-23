@@ -11,6 +11,7 @@ import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AiOutlineDownload, AiOutlineEye } from 'react-icons/ai';
 import SectionTitle from 'src/components/section-title/section-title';
+import { getPdfViewerUrl } from 'src/config/api.config';
 import { booksCategory } from 'src/config/constants';
 import { loadImage } from 'src/helpers/image.helper';
 import { useTypedSelector } from 'src/hooks/useTypedSelector';
@@ -113,7 +114,7 @@ const BooksPageComponent = () => {
 										variant="solid"
 									onClick={() => {
 										// PDF faylni yangi tabda ochish
-										window.open(loadImage(item.pdf), '_blank');
+										window.open(getPdfViewerUrl(item.pdf), '_blank');
 									}}
 										leftIcon={<AiOutlineEye size={16} />}
 										fontSize="xs"

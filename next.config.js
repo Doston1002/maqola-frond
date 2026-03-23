@@ -126,16 +126,19 @@ const nextConfig = {
   },
   async headers() {
     return [
-      // PDF proxy — iframe da ko'rsatish uchun SAMEORIGIN
+      {
+        source: '/:path*',
+        headers: securityHeaders,
+      },
+      // PDF proxy — iframe da ko'rsatish uchun ruxsat
+      // Muhim: umumiy headerlardan keyin turadi, shunda shu route uchun override bo'ladi.
       {
         source: '/api/proxy-pdf',
         headers: [
           { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+          { key: 'Content-Security-Policy', value: "frame-ancestors 'self'" },
+          { key: 'Content-Type', value: 'application/pdf' },
         ],
-      },
-      {
-        source: '/:path*',
-        headers: securityHeaders,
       },
     ];
   },

@@ -11,7 +11,7 @@ import { CollectionType } from 'src/interfaces/collection.interface';
 import { ArticleType } from 'src/interfaces/article.interface';
 import { CollectionService } from 'src/services/collection.service';
 import { ArticleService } from 'src/services/article.service';
-import { getAssetSrc, getFullAssetUrl } from 'src/config/api.config';
+import { getAssetSrc, getFullAssetUrl, getPdfViewerUrl } from 'src/config/api.config';
 import { getLocalized, resolveLocale } from 'src/helpers/locale.helper';
 
 interface CollectionSlugPageProps extends AppProviderProps {
@@ -137,11 +137,11 @@ const CollectionSlugPage = ({ collection, articles }: CollectionSlugPageProps) =
 								colorScheme="blue"
 								mt={2}
 								as="a"
-								href={getFullAssetUrl(a.pdfUrl)}
+								href={getPdfViewerUrl(a.pdfUrl)}
 								target="_blank"
 								rel="noopener noreferrer"
 							>
-								PDF yuklab olish
+								PDF ochish
 							</Button>
 						</Box>
 					); })}

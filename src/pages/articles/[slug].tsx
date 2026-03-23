@@ -52,7 +52,7 @@ const ArticleSlugPage = ({ article }: ArticleSlugPageProps) => {
 
 	const handleDownload = () => {
 		ArticleService.recordDownload(article.slug).catch(() => {});
-		window.open(pdfHref, '_blank');
+		window.open(pdfViewerSrc || pdfHref, '_blank');
 	};
 
 	const ogImageUrl = collection?.coverImage ? getFullAssetUrl(collection.coverImage) : undefined;
