@@ -1,4 +1,4 @@
-import { Box, Container, Heading, SimpleGrid, Text, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
+import { Box, Container, Heading, SimpleGrid, Text, Input, InputGroup, InputLeftElement, useColorModeValue } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
 import { CollectionType } from 'src/interfaces/collection.interface';
@@ -27,19 +27,37 @@ const HomePageComponent = ({ collections, stats }: HomePageProps) => {
 		<Container maxW="container.xl" py={10}>
 			<Box textAlign="center" mb={10}>
 				<Heading size="xl" mb={4}>Ilmiy maqolalar va journal to&apos;plamlari</Heading>
-				<Text color="gray.600" fontSize="lg">
+				<Text color={useColorModeValue('gray.600', 'gray.200')} fontSize="lg">
 					Journal to&apos;plamlarini ko&apos;ring, maqolalarni o&apos;qing va PDF yuklab oling.
 				</Text>
 			</Box>
 
 			<SimpleGrid columns={{ base: 1, md: 2 }} gap={6} mb={10}>
-				<Box bg="blue.50" p={6} borderRadius="lg" textAlign="center">
-					<Heading size="2xl" color="blue.600">{stats.collectionsCount}</Heading>
-					<Text mt={2}>Jami journal to&apos;plamlari</Text>
+				<Box
+					bg={useColorModeValue('blue.50', 'blue.900')}
+					p={6}
+					borderRadius="lg"
+					textAlign="center"
+				>
+					<Heading size="2xl" color={useColorModeValue('blue.600', 'blue.200')}>
+						{stats.collectionsCount}
+					</Heading>
+					<Text mt={2} color={useColorModeValue('gray.700', 'gray.200')}>
+						Jami journal to&apos;plamlari
+					</Text>
 				</Box>
-				<Box bg="green.50" p={6} borderRadius="lg" textAlign="center">
-					<Heading size="2xl" color="green.600">{stats.articlesCount}</Heading>
-					<Text mt={2}>Jami maqolalar</Text>
+				<Box
+					bg={useColorModeValue('green.50', 'green.900')}
+					p={6}
+					borderRadius="lg"
+					textAlign="center"
+				>
+					<Heading size="2xl" color={useColorModeValue('green.600', 'green.200')}>
+						{stats.articlesCount}
+					</Heading>
+					<Text mt={2} color={useColorModeValue('gray.700', 'gray.200')}>
+						Jami maqolalar
+					</Text>
 				</Box>
 			</SimpleGrid>
 
@@ -50,9 +68,11 @@ const HomePageComponent = ({ collections, stats }: HomePageProps) => {
 						name="q"
 						placeholder="Maqola, muallif yoki kalit soʻz boʻyicha qidirish..."
 						borderRadius="full"
-						bg="white"
+						bg={useColorModeValue('white', 'gray.800')}
 						border="2px"
-						borderColor="gray.200"
+						borderColor={useColorModeValue('gray.200', 'gray.700')}
+						color={useColorModeValue('gray.800', 'gray.100')}
+						_placeholder={{ color: useColorModeValue('gray.500', 'gray.400') }}
 					/>
 				</InputGroup>
 			</Box>
@@ -62,12 +82,16 @@ const HomePageComponent = ({ collections, stats }: HomePageProps) => {
 				{collections.slice(0, 6).map((c) => (
 					<Box
 						key={c._id}
+						bg={useColorModeValue('white', 'gray.800')}
 						p={5}
 						shadow="md"
 						borderWidth="1px"
 						borderRadius="lg"
 						cursor="pointer"
-						_hover={{ shadow: 'lg', borderColor: 'blue.200' }}
+						_hover={{
+							shadow: 'lg',
+							borderColor: useColorModeValue('blue.200', 'blue.300'),
+						}}
 						onClick={() => router.push(`/collections/${c.slug}`)}
 					>
 						{c.coverImage && (
@@ -77,7 +101,7 @@ const HomePageComponent = ({ collections, stats }: HomePageProps) => {
 								w="100%"
 								borderRadius="md"
 								overflow="hidden"
-								bg="gray.50"
+								bg={useColorModeValue('gray.50', 'gray.700')}
 								display="flex"
 								alignItems="center"
 								justifyContent="center"
@@ -96,8 +120,13 @@ const HomePageComponent = ({ collections, stats }: HomePageProps) => {
 							</Box>
 						)}
 						<Heading size="sm">{getLocalized(c as object, 'title', locale)}</Heading>
-						<Text fontSize="sm" color="gray.600" mt={1}>{c.year} yil</Text>
-						<Text noOfLines={2} fontSize="sm" mt={2}>
+						<Text fontSize="sm" color={useColorModeValue('gray.600', 'gray.200')} mt={1}>{c.year} yil</Text>
+						<Text
+							noOfLines={2}
+							fontSize="sm"
+							mt={2}
+							color={useColorModeValue('gray.600', 'gray.200')}
+						>
 							{((getLocalized(c as object, 'description', locale) || '') as string).replace(/<[^>]*>/g, ' ').replace(/&nbsp;/g, ' ').trim()}
 						</Text>
 					</Box>
@@ -107,7 +136,7 @@ const HomePageComponent = ({ collections, stats }: HomePageProps) => {
 				<Box textAlign="center" mt={8}>
 					<Text
 						as="button"
-						color="blue.600"
+						color={useColorModeValue('blue.600', 'blue.200')}
 						fontWeight="semibold"
 						onClick={() => router.push('/collections')}
 					>

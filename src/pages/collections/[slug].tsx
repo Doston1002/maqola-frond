@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
-import { Box, Container, Heading, Text, Link, Button } from '@chakra-ui/react';
+import { Box, Container, Heading, Text, Link, Button, useColorModeValue } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
 import { withLayout } from 'src/layouts/layout';
@@ -78,7 +78,7 @@ const CollectionSlugPage = ({ collection, articles }: CollectionSlugPageProps) =
 					/>
 				)}
 				<Heading size="xl" mb={2}>{collectionTitle}</Heading>
-				<Text color="gray.600" mb={4}>{collection.year} yil</Text>
+				<Text color={useColorModeValue('gray.600', 'gray.200')} mb={4}>{collection.year} yil</Text>
 				{collectionDescription && (
 					<Box
 						mb={8}
@@ -108,7 +108,7 @@ const CollectionSlugPage = ({ collection, articles }: CollectionSlugPageProps) =
 							mb={3}
 							borderWidth="1px"
 							borderRadius="md"
-							_hover={{ bg: 'gray.50' }}
+							_hover={{ bg: useColorModeValue('gray.50', 'gray.700') }}
 						>
 							<Link
 								onClick={(e) => {
@@ -116,12 +116,14 @@ const CollectionSlugPage = ({ collection, articles }: CollectionSlugPageProps) =
 									router.push(`/articles/${a.slug}`);
 								}}
 								fontWeight="medium"
+								color={useColorModeValue('gray.800', 'white')}
+								_hover={{ textDecoration: 'none', color: useColorModeValue('blue.700', 'blue.200') }}
 							>
 								{articleTitle}
 							</Link>
-							{a.authors && <Text fontSize="sm" color="gray.600" mt={1}>{a.authors}</Text>}
+							{a.authors && <Text fontSize="sm" color={useColorModeValue('gray.600', 'gray.200')} mt={1}>{a.authors}</Text>}
 							{articleAbstract && (
-								<Text noOfLines={2} fontSize="sm" mt={2}>
+								<Text noOfLines={2} fontSize="sm" mt={2} color={useColorModeValue('gray.600', 'gray.200')}>
 									{articleAbstract
 										.replace(/<[^>]*>/g, ' ')
 										.replace(/&nbsp;/g, ' ')

@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next';
-import { Box, Container, Heading, SimpleGrid, Text } from '@chakra-ui/react';
+import { Box, Container, Heading, SimpleGrid, Text, useColorModeValue } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { withAdminLayout } from 'src/layouts/admin';
 import $axios from 'src/api/axios';
@@ -48,10 +48,10 @@ const AdminDashboard = () => {
 				{data.recentArticles.map((a) => (
 					<Box key={a._id} as="li" py={2} borderBottomWidth="1px">
 						<Text fontWeight="medium">{a.title}</Text>
-						<Text fontSize="sm" color="gray.600">{a.authors}</Text>
+						<Text fontSize="sm" color={useColorModeValue('gray.600', 'gray.200')}>{a.authors}</Text>
 					</Box>
 				))}
-				{(!data.recentArticles || data.recentArticles.length === 0) && <Text color="gray.500">Maqolalar yo&apos;q</Text>}
+				{(!data.recentArticles || data.recentArticles.length === 0) && <Text color={useColorModeValue('gray.500', 'gray.200')}>Maqolalar yo&apos;q</Text>}
 			</Box>
 		</Container>
 	);

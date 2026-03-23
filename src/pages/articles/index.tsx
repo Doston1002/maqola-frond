@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Container, Heading, Input, Button, SimpleGrid, Text, Link } from '@chakra-ui/react';
+import { Box, Container, Heading, Input, Button, SimpleGrid, Text, Link, useColorModeValue } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { withLayout } from 'src/layouts/layout';
 import Seo from 'src/layouts/seo/seo';
@@ -58,7 +58,7 @@ const ArticlesPage = () => {
 				{searched && (
 					<SimpleGrid columns={{ base: 1 }} spacing={4}>
 						{results.length === 0 ? (
-							<Text>Maqolalar topilmadi.</Text>
+							<Text color={useColorModeValue('gray.600', 'gray.200')}>Maqolalar topilmadi.</Text>
 						) : (
 							results.map((a) => (
 								<Box key={a._id} p={4} borderWidth="1px" borderRadius="md">
@@ -71,7 +71,7 @@ const ArticlesPage = () => {
 									>
 										{a.title}
 									</Link>
-									{a.authors && <Text fontSize="sm" color="gray.600">{a.authors}</Text>}
+									{a.authors && <Text fontSize="sm" color={useColorModeValue('gray.600', 'gray.200')}>{a.authors}</Text>}
 									{a.abstract && (
 										<Text noOfLines={2} fontSize="sm" mt={2}>
 											{stripHtml(a.abstract)}

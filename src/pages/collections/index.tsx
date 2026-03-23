@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next';
-import { Box, Container, Heading, SimpleGrid, Text } from '@chakra-ui/react';
+import { Box, Container, Heading, SimpleGrid, Text, useColorModeValue } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { withLayout } from 'src/layouts/layout';
 import type { AppProviderProps } from 'src/layouts/layout.props';
@@ -51,7 +51,7 @@ const CollectionsPage = ({ collections }: CollectionsPageProps) => {
 								/>
 							)}
 							<Heading size="sm">{getLocalized(c as object, 'title', locale)}</Heading>
-							<Text fontSize="sm" color="gray.600" mt={1}>{c.year} yil</Text>
+							<Text fontSize="sm" color={useColorModeValue('gray.600', 'gray.200')} mt={1}>{c.year} yil</Text>
 							<Text noOfLines={3} fontSize="sm" mt={2}>
 								{(getLocalized(c as object, 'description', locale) || '').replace(/<[^>]*>/g, ' ').replace(/&nbsp;/g, ' ').trim()}
 							</Text>

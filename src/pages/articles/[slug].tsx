@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
-import { Box, Container, Heading, Text, Button, SimpleGrid, Stack, Tag } from '@chakra-ui/react';
+import { Box, Container, Heading, Text, Button, SimpleGrid, Stack, Tag, useColorModeValue } from '@chakra-ui/react';
 import { withLayout } from 'src/layouts/layout';
 import type { AppProviderProps } from 'src/layouts/layout.props';
 import Seo from 'src/layouts/seo/seo';
@@ -129,7 +129,7 @@ const ArticleSlugPage = ({ article }: ArticleSlugPageProps) => {
 							Muallif(lar): {article.authors}
 						</Text>
 					)}
-					<Text fontSize="sm" color="gray.600" textAlign="center">
+					<Text fontSize="sm" color={useColorModeValue('gray.600', 'gray.200')} textAlign="center">
 						{collectionTitle && `${collectionTitle} • `}{collectionYear ? `${collectionYear} yil • ` : ''}
 						Koʻrilganlar: {article.viewCount ?? 0} • Yuklab olishlar: {article.downloadCount ?? 0}
 					</Text>
@@ -150,7 +150,7 @@ const ArticleSlugPage = ({ article }: ArticleSlugPageProps) => {
 									<Button colorScheme="blue" size="md" onClick={handleDownload}>
 										PDF
 									</Button>
-									<Text fontSize="sm" color="gray.600" mt={2}>
+									<Text fontSize="sm" color={useColorModeValue('gray.600', 'gray.200')} mt={2}>
 										Agar PDF yuqorida ko&apos;rinmasa, &quot;PDF&quot; tugmasi orqali yangi oynada oching.
 									</Text>
 								</Box>
