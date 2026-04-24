@@ -96,6 +96,8 @@ const CollectionSlugPage = ({ collection, articles }: CollectionSlugPageProps) =
 				)}
 
 {/*ds*/}
+
+{/*ds*/}
 				<Heading size="md" mb={4}>Maqolalar</Heading>
 				<Box as="ul" listStyleType="none">
 					{articles.map((a) => {
