@@ -26,7 +26,11 @@ const ArticleSlugPage = ({ article }: ArticleSlugPageProps) => {
 	const keywordsList = keywordsText
 		? keywordsText.split(',').map(k => k.trim()).filter(Boolean)
 		: [];
-	const pdfHref = getFullAssetUrl(article.pdfUrl);
+	const pdfHref = article.pdfUrl
+		? article.pdfUrl.startsWith('http')
+			? article.pdfUrl
+			: `${siteConfig.baseURL}${article.pdfUrl.startsWith('/') ? '' : '/'}${article.pdfUrl}`
+		: '';
 	const pdfViewerSrc = getPdfViewerUrl(article.pdfUrl);
 	const url = `${siteConfig.baseURL}/articles/${article.slug}`;
 
@@ -84,11 +88,13 @@ const ArticleSlugPage = ({ article }: ArticleSlugPageProps) => {
 						? authorList.map((author) => (
 							<meta key={author} name="citation_author" content={author} />
 						))
-						: article.authors && <meta name="citation_author" content={article.authors} />}
+						: article.authors
+							? <meta name="citation_author" content={article.authors} />
+							: siteConfig.metaData.author && <meta name="citation_author" content={siteConfig.metaData.author} />}
 					{publicationDate && <meta name="citation_publication_date" content={publicationDate} />}
 					{plainAbstract && <meta name="citation_abstract" content={plainAbstract} />}
 					{pdfHref && <meta name="citation_pdf_url" content={pdfHref} />}
-					{collectionTitle && <meta name="citation_journal_title" content={collectionTitle} />}
+					<meta name="citation_journal_title" content={collectionTitle || siteConfig.siteName} />
 					{siteConfig.siteName && <meta name="citation_publisher" content={siteConfig.siteName} />}
 					{article.doi && <meta name="citation_doi" content={article.doi} />}
 					{keywordsList.length > 0 && (
