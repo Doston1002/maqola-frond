@@ -93,8 +93,8 @@ const ArticleSlugPage = ({ article }: ArticleSlugPageProps) => {
 							: siteConfig.metaData.author && <meta name="citation_author" content={siteConfig.metaData.author} />}
 					{publicationDate && <meta name="citation_publication_date" content={publicationDate} />}
 					{plainAbstract && <meta name="citation_abstract" content={plainAbstract} />}
-					{pdfHref && <meta name="citation_pdf_url" content={pdfHref} />}
-					<meta name="citation_journal_title" content={collectionTitle || siteConfig.siteName} />
+					{pdfHref && <meta name="citation_pdf_url" content={pdfHref} key="pdf" />}
+					<meta name="citation_journal_title" content="Teaching Science" />
 					{siteConfig.siteName && <meta name="citation_publisher" content={siteConfig.siteName} />}
 					{article.doi && <meta name="citation_doi" content={article.doi} />}
 					{keywordsList.length > 0 && (
@@ -104,6 +104,8 @@ const ArticleSlugPage = ({ article }: ArticleSlugPageProps) => {
 					{article.createdAt && (
 						<meta name="citation_online_date" content={new Date(article.createdAt).toISOString().slice(0, 10)} />
 					)}
+					<meta name="citation_fulltext_html_url" content={url} />
+					<meta name="citation_issn" content="2181-XXXX" />
 
 					<script
 						type="application/ld+json"
@@ -210,6 +212,14 @@ const ArticleSlugPage = ({ article }: ArticleSlugPageProps) => {
 						)}
 					</Box>
 				</SimpleGrid>
+
+				<Box mt={10}>
+					<Heading size="md" mb={3}>References</Heading>
+					<Text fontSize="sm">
+						1. Author A. (2020). Title of article. Journal Name.<br/>
+						2. Author B. (2021). Another article...
+					</Text>
+				</Box>
 			</Container>
 		}
 		/>
