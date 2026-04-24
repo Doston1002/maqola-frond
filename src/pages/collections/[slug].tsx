@@ -111,10 +111,7 @@ const CollectionSlugPage = ({ collection, articles }: CollectionSlugPageProps) =
 							_hover={{ bg: useColorModeValue('gray.50', 'gray.700') }}
 						>
 							<Link
-								onClick={(e) => {
-									e.preventDefault();
-									router.push(`/articles/${a.slug}`);
-								}}
+								href={`/articles/${a.slug}`}
 								fontWeight="medium"
 								color={useColorModeValue('gray.800', 'white')}
 								_hover={{ textDecoration: 'none', color: useColorModeValue('blue.700', 'blue.200') }}

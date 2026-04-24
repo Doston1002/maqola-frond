@@ -25,10 +25,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			.filter((a) => a.slug && a.isPublished === true)
 			.map((a) => a.slug as string);
 
+		const collectionResponse = await fetch(`${apiBase}/api/collections`);
+		if (!collectionResponse.ok) {
+			throw new Error(`Backend ${collectionResponse.status}`);
+		}
+		const collections: { slug?: string; isPublished?: boolean }[] = await collectionResponse.json();
+		const collectionSlugs = (collections || [])
+			.filter((c) => c.slug && c.isPublished === true)
+			.map((c) => c.slug as string);
+
 		const urls = [
 			{ loc: baseUrl, changefreq: 'daily', priority: '1.0' },
 			{ loc: `${baseUrl}/articles`, changefreq: 'daily', priority: '0.9' },
 			{ loc: `${baseUrl}/collections`, changefreq: 'weekly', priority: '0.8' },
+			...collectionSlugs.map((slug) => ({
+				loc: `${baseUrl}/collections/${slug}`,
+				changefreq: 'weekly' as const,
+				priority: '0.6',
+			})),
 			...slugs.map((slug) => ({
 				loc: `${baseUrl}/articles/${slug}`,
 				changefreq: 'monthly' as const,
